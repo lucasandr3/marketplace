@@ -24,6 +24,9 @@
                 <li class="nav-item">
                     <a class="nav-link @if(request()->is('admin/products')) active @endif" href="{{route('products')}}">Produtos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->is('admin/categories')) active @endif" href="{{route('categories')}}">Categorias</a>
+                </li>
             </ul>
             <div class="d-flex" role="search">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">

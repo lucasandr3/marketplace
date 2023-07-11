@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\ProfileController;
@@ -48,4 +49,13 @@ Route::middleware('auth')->prefix('admin/products')->controller(ProductControlle
     Route::get('{product}/edit', 'edit')->name('products.edit');
     Route::put('update/{product}', 'update')->name('products.update');
     Route::delete('destroy/{product}', 'destroy')->name('products.destroy');
+});
+
+Route::middleware('auth')->prefix('admin/categories')->controller(CategoryController::class)->group(function () {
+    Route::get('', 'index')->name('categories');
+    Route::get('create', 'create')->name('categories.create');
+    Route::post('store', 'store')->name('categories.store');
+    Route::get('{category}/edit', 'edit')->name('categories.edit');
+    Route::put('update/{category}', 'update')->name('categories.update');
+    Route::delete('destroy/{category}', 'destroy')->name('categories.destroy');
 });

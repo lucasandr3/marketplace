@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('mobile_phone');
             $table->string('slug');
+            $table->string('logo')->default('default.png');
             $table->timestamps();
 
 //            $table->foreign('user_id')->references('id')->on('users');

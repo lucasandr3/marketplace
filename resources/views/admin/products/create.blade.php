@@ -27,6 +27,14 @@
             @error('price') <span class="invalid-feedback">{{$message}}</span> @enderror
         </div>
         <div class="form-group mb-3">
+            <label>Categorias:</label>
+            <select class="form-control" multiple name="categories[]">
+                @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group mb-3">
             <label>Slug:</label>
             <input type="text" class="form-control @error('slug') is-invalid @enderror" name="slug" value="{{old('slug')}}">
             @error('slug') <span class="invalid-feedback">{{$message}}</span> @enderror
