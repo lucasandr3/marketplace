@@ -4,7 +4,7 @@
     <h1>Criar Produto</h1>
     <p><a href="{{route('products')}}" class="btn btn-outline-secondary btn-sm">Voltar para produtos</a></p>
     @include('flash::message')
-    <form action="{{route('products.store')}}" method="post">
+    <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group mb-3">
             <label>Nome Produto:</label>
@@ -33,6 +33,10 @@
                     <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="form-group mb-3">
+            <label>Imagens do produto:</label>
+            <input type="file" name="photos[]" multiple class="form-control" />
         </div>
         <div class="form-group mb-3">
             <label>Slug:</label>

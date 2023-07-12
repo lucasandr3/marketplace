@@ -4,7 +4,7 @@
     <h1>Criar Loja</h1>
     <p><a href="{{route('stores')}}" class="btn btn-outline-secondary btn-sm">Voltar para lojas</a></p>
     @include('flash::message')
-    <form action="{{route('stores.store')}}" method="post">
+    <form action="{{route('stores.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group mb-3">
             <label>Nome Loja:</label>
@@ -25,6 +25,10 @@
             <label>Celular:</label>
             <input type="text" class="form-control @error('mobile_phone') is-invalid @enderror" name="mobile_phone" value="{{old('mobile_phone')}}">
             @error('mobile_phone') <span class="invalid-feedback">{{$message}}</span> @enderror
+        </div>
+        <div class="form-group mb-3">
+            <label>Logo da Loja:</label>
+            <input type="file" name="logo" class="form-control" />
         </div>
         <div class="form-group mb-3">
             <label>Slug:</label>

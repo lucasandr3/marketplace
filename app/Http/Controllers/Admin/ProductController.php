@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Interfaces\UploadFilesServiceInterface;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
@@ -12,13 +13,23 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    private UploadFilesServiceInterface $uploadService;
+
+    public function __construct(UploadFilesServiceInterface $uploadService)
+    {
+        $this->uploadService = $uploadService;
+    }
+
     public function index()
     {
         $storeUser = auth()->user()->store;
-        $products = $storeUser->products()->paginate(10);
+
+        if (!empty($storeUser)) {
+            $products = $storeUser->products()->paginate(10);
+        }
 
         return view('admin.products.index', [
-            'products' => $products
+            'products' => !empty($storeUser) ? $products : []
         ]);
     }
 
@@ -35,9 +46,18 @@ class ProductController extends Controller
         $data = $request->all();
         $store = auth()->user()->store;
 
+        $categories = $request->get('categories', null);
+
         $product = $store->products()->create($data);
 
-        $product->categories()->sync($data['categories']);
+        if (!is_null($categories)) {
+            $product->categories()->sync($categories);
+        }
+
+        if ($request->hasFile('photos')) {
+            $images = $this->uploadService->uploadFilesMultiple($request, 'stores/produtos', 'image');
+            $product->images()->createMany($images);
+        }
 
         flash('Produto criado com Sucesso.')->success();
         return redirect()->route('products');
@@ -57,11 +77,21 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, $product)
     {
         $data = $request->all();
+        $categories = $request->get('categories', null);
         $product = Product::find($product);
         $product->update($data);
-        $product->categories()->sync($data['categories']);
+
+        if (!is_null($categories)) {
+            $product->categories()->sync($categories);
+        }
+
+        if ($request->hasFile('photos')) {
+            $images = $this->uploadService->uploadFilesMultiple($request, 'stores/produtos', 'image');
+            $product->images()->createMany($images);
+        }
+
         flash('Produto atualizado com Sucesso.')->success();
-        return redirect()->route('products');
+        return redirect()->back();
     }
 
     public function destroy($product)

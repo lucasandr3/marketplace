@@ -2,6 +2,14 @@
 
 @section('content')
     <h1>Produtos</h1>
+    @if(!$products)
+        <div class="mt-5">
+            <h5>Você ainda não possui loja cadastrada</h5>
+            <p>Cadastre uma loja para cadastrar produtos.</p>
+        </div>
+
+        <p><a href="{{route('stores.create')}}" class="btn btn-outline-secondary btn-sm">Criar loja</a></p>
+    @else
     <p><a href="{{route('products.create')}}" class="btn btn-outline-secondary btn-sm">Criar Produto</a></p>
     @include('flash::message')
     <table class="table table-striped">
@@ -37,4 +45,5 @@
     </table>
 
     {{$products->links()}}
+    @endif
 @endsection
