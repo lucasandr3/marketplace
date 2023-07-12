@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductPhotoController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,10 @@ Route::middleware('auth')->prefix('admin/products')->controller(ProductControlle
     Route::get('{product}/edit', 'edit')->name('products.edit');
     Route::put('update/{product}', 'update')->name('products.update');
     Route::delete('destroy/{product}', 'destroy')->name('products.destroy');
+});
+
+Route::middleware('auth')->prefix('admin/products/photos')->controller(ProductPhotoController::class)->group(function () {
+    Route::delete('remove/{photoId}', 'removePhoto')->name('products.photos.destroy');
 });
 
 Route::middleware('auth')->prefix('admin/categories')->controller(CategoryController::class)->group(function () {

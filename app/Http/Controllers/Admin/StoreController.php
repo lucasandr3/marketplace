@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Interfaces\UploadFilesServiceInterface;
 use App\Http\Requests\CreateStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StoreController extends Controller
 {
-    public function __construct()
+    private UploadFilesServiceInterface $uploadService;
+
+    public function __construct(UploadFilesServiceInterface $uploadService)
     {
         $this->middleware('user.has.store')->only(['create', 'store']);
+        $this->uploadService = $uploadService;
     }
 
     public function index()
@@ -33,7 +38,14 @@ class StoreController extends Controller
     {
         $data = $request->all();
         $user = auth()->user();
+
+        if ($request->hasFile('logo')) {
+            $logo = $this->uploadService->uploadFileOne($request, 'stores/logo');
+            $data['logo'] = $logo;
+        }
+
         $store = $user->store()->create($data);
+
         flash('Loja criada com Sucesso.')->success();
         return redirect()->route('stores');
     }
@@ -50,9 +62,21 @@ class StoreController extends Controller
     {
         $data = $request->all();
         $store = Store::find($store);
+
+        if ($request->hasFile('logo')) {
+
+            if (Storage::disk('public')->exists($store->logo)) {
+                Storage::disk('public')->delete($store->logo);
+            }
+
+            $logo = $this->uploadService->uploadFileOne($request, 'stores/logo');
+            $data['logo'] = $logo;
+        }
+
         $store->update($data);
+
         flash('Loja atualizada com Sucesso.')->success();
-        return redirect()->route('stores');
+        return redirect()->back();
     }
 
     public function destroy($store)

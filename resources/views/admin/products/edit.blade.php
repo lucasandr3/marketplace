@@ -4,7 +4,7 @@
     <h1>Atualizar Produto</h1>
     <p><a href="{{route('products')}}" class="btn btn-outline-secondary btn-sm">Voltar para produtos</a></p>
     @include('flash::message')
-    <form action="{{route('products.update', $product->id)}}" method="post">
+    <form action="{{route('products.update', $product->id)}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group mb-3">
@@ -33,6 +33,12 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="form-group mb-3">
+            <label>Imagens do produto:</label>
+            <input type="file" name="photos[]" multiple class="form-control" />
+        </div>
+
         <div class="form-group mb-3">
             <label>Slug:</label>
             <input type="text" class="form-control" name="slug" value="{{$product->slug}}">
@@ -41,4 +47,19 @@
             <button type="submit" class="btn btn-success">Atualizar Produto</button>
         </div>
     </form>
+
+    <hr>
+
+    <div class="row">
+        @foreach($product->images()->get() as $image)
+            <div class="col-4 text-center">
+                <img src="{{asset("storage/{$image->image}")}}"  class="img-fluid"/>
+                <form action="{{route('products.photos.destroy', $image->id)}}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">Remover foto</button>
+                </form>
+            </div>
+        @endforeach
+    </div>
 @endsection
