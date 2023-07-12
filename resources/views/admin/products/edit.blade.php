@@ -38,11 +38,6 @@
             <label>Imagens do produto:</label>
             <input type="file" name="photos[]" multiple class="form-control" />
         </div>
-
-        <div class="form-group mb-3">
-            <label>Slug:</label>
-            <input type="text" class="form-control" name="slug" value="{{$product->slug}}">
-        </div>
         <div class="form-group">
             <button type="submit" class="btn btn-success">Atualizar Produto</button>
         </div>
