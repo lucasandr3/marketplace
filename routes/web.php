@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductPhotoController;
 use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::prefix('/')->controller(HomeController::class)->group(function () {
+    Route::get('', 'index')->name('home');
+    Route::get('produto/{slug}', 'single')->name('product.single');
+});
+
+Route::prefix('carrinho')->controller(CartController::class)->group(function () {
+    Route::get('/', 'index')->name('cart');
+    Route::post('add', 'add')->name('cart.add');
+    Route::get('remove/{slug}', 'remove')->name('cart.remove');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
