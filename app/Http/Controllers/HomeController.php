@@ -11,8 +11,16 @@ class HomeController extends Controller
     {
         $products = Product::limit(8)->orderBy('id', 'DESC')->get();
 
-        return view('welcome', [
+        return view('store.welcome', [
             'products' => $products
+        ]);
+    }
+
+    public function single(string $slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        return view('store.product', [
+            'product' => $product
         ]);
     }
 }
