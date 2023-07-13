@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $products = Product::limit(8)->orderBy('id', 'DESC')->get();
+        $products = Product::limit(6)->orderBy('id', 'DESC')->get();
+        $stores = Store::limit(3)->get();
 
         return view('store.welcome', [
-            'products' => $products
+            'products' => $products,
+            'stores' => $stores
         ]);
     }
 
