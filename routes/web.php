@@ -28,6 +28,7 @@ Route::prefix('/')->controller(HomeController::class)->group(function () {
 Route::prefix('carrinho')->controller(CartController::class)->group(function () {
     Route::get('/', 'index')->name('cart');
     Route::post('add', 'add')->name('cart.add');
+    Route::get('cancel', 'cancel')->name('cart.cancel');
     Route::get('remove/{slug}', 'remove')->name('cart.remove');
 });
 

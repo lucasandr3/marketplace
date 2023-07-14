@@ -1,22 +1,6 @@
 @extends('layouts.front')
 
 @section('content')
-    {{--    <div class="row">--}}
-    {{--        <div class="col-md-4">--}}
-    {{--    @foreach($products as $product)--}}
-    {{--                <div class="card">--}}
-    {{--                    @if($product->photos)--}}
-    {{--                        <img src="{{asset("storage/".$product->photos()->first()->image)}}" alt="" class="card-img-top" />--}}
-    {{--                    @endif--}}
-    {{--                    <div class="card-body">--}}
-    {{--                        <h2 class="card-title">{{$product->name}}</h2>--}}
-    {{--                        <p class="card-text">{{$product->description}}</p>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--    @endforeach--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
-
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         @foreach($products as $product)
             <div class="col">
@@ -34,10 +18,23 @@
                             <div class="btn-group">
                                 <a href="{{route('product.single', $product->slug)}}" class="btn btn-sm btn-success">Ver produto</a>
                             </div>
-                            <small class="text-body-secondary">9 mins</small>
+                            <small class="text-body-secondary">{{$product->store()->first()->name}}</small>
                         </div>
                     </div>
                 </div>
+            </div>
+        @endforeach
+    </div>
+    <hr>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h2>Lojas Destaque</h2>
+        </div>
+        @foreach($stores as $store)
+            <div class="col-md-4">
+                <img src="{{url('assets/images/'. $store->logo)}}" alt=""/>
+                <h5>{{$store->name}}</h5>
+                <p>{{$store->description}}</p>
             </div>
         @endforeach
     </div>
