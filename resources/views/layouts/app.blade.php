@@ -27,6 +27,9 @@
                 <li class="nav-item">
                     <a class="nav-link @if(request()->is('admin/categories')) active @endif" href="{{route('categories')}}">Categorias</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->is('admin/pedidos')) active @endif" href="{{route('meus_pedidos')}}">Pedidos</a>
+                </li>
             </ul>
             <div class="d-flex" role="search">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -44,5 +47,6 @@
 <div class="container">
     @yield('content')
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

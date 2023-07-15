@@ -5,8 +5,10 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductPhotoController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Store\CartController;
+use App\Http\Controllers\Store\CheckoutController;
 use App\Http\Controllers\Store\HomeController;
 use App\Http\Controllers\Store\ProfileController;
+use App\Http\Controllers\Store\UserOrdersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +40,16 @@ Route::prefix('carrinho')->controller(CartController::class)->group(function () 
     Route::post('add', 'add')->name('cart.add');
     Route::get('cancel', 'cancel')->name('cart.cancel');
     Route::get('remove/{slug}', 'remove')->name('cart.remove');
+});
+
+Route::prefix('/checkout')->controller(CheckoutController::class)->group(function () {
+    Route::get('', 'index')->name('checkout');
+    Route::post('process', 'process')->name('checkout.process');
+    Route::get('obrigado', 'thanks')->name('checkout.thanks');
+});
+
+Route::prefix('/meus_pedidos')->controller(UserOrdersController::class)->group(function () {
+    Route::get('', 'index')->name('loja.pedidos');
 });
 
 Route::get('/dashboard', function () {
@@ -81,4 +93,8 @@ Route::middleware('auth')->prefix('admin/categories')->controller(CategoryContro
     Route::get('{category}/edit', 'edit')->name('categories.edit');
     Route::put('update/{category}', 'update')->name('categories.update');
     Route::delete('destroy/{category}', 'destroy')->name('categories.destroy');
+});
+
+Route::middleware('auth')->prefix('admin/pedidos')->controller(\App\Http\Controllers\Admin\OrdersController::class)->group(function () {
+    Route::get('', 'index')->name('meus_pedidos');
 });

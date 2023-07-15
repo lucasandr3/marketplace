@@ -21,7 +21,7 @@ class CartController extends Controller
     {
         $productData = $request->get('product');
 
-        $product = Product::where('slug', $productData['slug'])->first(['name', 'price'])->toArray();
+        $product = Product::where('slug', $productData['slug'])->first(['name', 'price', 'store_id'])->toArray();
 
         if (empty($product)) {
             flash('Algo deu errado, tente novamente.');

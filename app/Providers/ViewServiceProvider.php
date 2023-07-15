@@ -14,7 +14,10 @@ class ViewServiceProvider extends ServiceProvider
         'store.product',
         'store.category',
         'store.store',
-        'store.cart'
+        'store.cart',
+        'store.checkout',
+        'store.orders',
+        'store.thanks'
     ];
 
     /**

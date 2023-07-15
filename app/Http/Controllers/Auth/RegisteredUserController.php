@@ -46,6 +46,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        if (auth()->check() && session()->has('cart')) {
+            return redirect()->route('checkout');
+        }
+
         return redirect(RouteServiceProvider::HOME);
     }
 }

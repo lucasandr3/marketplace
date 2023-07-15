@@ -49,6 +49,9 @@
                         <li class="nav-item @if(request()->is('/')) active @endif">
                             <a class="nav-link" href="#">{{auth()->user()->name}}</a>
                         </li>
+                        <li class="nav-item @if(request()->is('/meus_pedidos')) active @endif">
+                            <a class="nav-link @if(request()->is('/meus_pedidos')) active @endif" href="{{route('loja.pedidos')}}">Meus Pedidos</a>
+                        </li>
                         <li class="nav-item @if(request()->is('/')) active @endif">
                             <a class="nav-link" href="#" onclick="event.preventDefault();
                                                               document.querySelector('form.logout').submit(); ">Sair</a>
@@ -77,5 +80,7 @@
     @include('flash::message')
     @yield('content')
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+@yield('scripts')
 </body>
 </html>
