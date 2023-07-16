@@ -84,6 +84,15 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item @if(request()->is('/cart')) active @endif">
+                            <a class="nav-link d-flex @if(request()->is('/cart')) active @endif" aria-current="page"
+                               href="{{route('cart')}}">
+                                Carrinho
+                                @if(session()->has('cart'))
+                                    <span class="badge text-bg-danger badge-sm">{{count(session()->get('cart'))}}</span>
+                                @endif
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link"
                                href="{{route('login')}}"><i class="fa fa-sign-in"></i> Entrar</a>

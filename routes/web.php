@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductPhotoController;
 use App\Http\Controllers\Admin\StoreController;
@@ -95,6 +97,10 @@ Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/categor
     Route::delete('destroy/{category}', 'destroy')->name('categories.destroy');
 });
 
-Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/pedidos')->controller(\App\Http\Controllers\Admin\OrdersController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/pedidos')->controller(OrdersController::class)->group(function () {
     Route::get('', 'index')->name('meus_pedidos');
+});
+
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/notificacoes')->controller(NotificationController::class)->group(function () {
+    Route::get('', 'notifications')->name('notifications');
 });

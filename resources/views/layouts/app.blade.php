@@ -30,6 +30,9 @@
                 <li class="nav-item">
                     <a class="nav-link @if(request()->is('admin/pedidos')) active @endif" href="{{route('meus_pedidos')}}">Pedidos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->is('admin/notificacoes')) active @endif" href="{{route('notifications')}}">Notificações</a>
+                </li>
             </ul>
             <div class="d-flex" role="search">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">

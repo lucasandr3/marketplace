@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
+use App\Models\Store;
 use App\Payment\PagSeguro\CreditCard;
 use Exception;
 use Illuminate\Http\Request;
@@ -63,6 +64,9 @@ class CheckoutController extends Controller
 
             $userOrder = $user->orders()->create($dataOrder);
             $userOrder->stores()->sync($stores);
+
+            // notifica as lojas
+            (new Store())->notifyStoreOwners($stores);
 //
 //            session()->forget('cart');
 //            session()->forget('pg_session_code');
