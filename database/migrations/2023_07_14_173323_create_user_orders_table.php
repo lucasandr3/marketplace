@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_orders', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\Models\User::class)->references('id')->on('users');
-            $table->foreignIdFor(\App\Models\Store::class)->references('id')->on('stores');
+//            $table->foreignIdFor(\App\Models\Store::class)->references('id')->on('stores');
             $table->string('reference');
             $table->string('pagseguro_code');
             $table->string('pagseguro_status');

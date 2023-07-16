@@ -21,7 +21,7 @@
                     <div class="accordion-body">
                         <ul class="mb-0">
                             @foreach(json_decode($order->items) as $item)
-                                <h5><strong>{{$store->name}}</strong></h5>
+                                <h5><strong>{{$order->stores()->first()->name}}</strong></h5>
                                 <div class="ms-3 mb-3">
                                     <li class="list-group-item"><strong>Produto: </strong>{{$item->name}}</li>
                                     <li class="list-group-item"><strong>Preço: </strong>R$ {{number_format($item->price, 2, ',', '.')}}</li>

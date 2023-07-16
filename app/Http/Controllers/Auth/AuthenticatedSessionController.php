@@ -29,11 +29,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (auth()->check() && session()->has('cart')) {
-            return redirect()->route('checkout');
+        if (auth()->user()->role === 'ROLE_OWNER') {
+            return redirect()->route('dashboard');
         }
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if (auth()->user()->role === 'ROLE_USER' && session()->has('cart')) {
+            return redirect()->route('checkout');
+        } else {
+            return redirect()->route('home');
+        }
+//        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

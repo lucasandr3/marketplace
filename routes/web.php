@@ -54,9 +54,9 @@ Route::prefix('/meus_pedidos')->controller(UserOrdersController::class)->group(f
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'access.control.store.admin'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -64,7 +64,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware('auth')->prefix('admin/stores')->controller(StoreController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/stores')->controller(StoreController::class)->group(function () {
     Route::get('', 'index')->name('stores');
     Route::get('create', 'create')->name('stores.create');
     Route::post('store', 'store')->name('stores.store');
@@ -73,7 +73,7 @@ Route::middleware('auth')->prefix('admin/stores')->controller(StoreController::c
     Route::delete('destroy/{store}', 'destroy')->name('stores.destroy');
 });
 
-Route::middleware('auth')->prefix('admin/products')->controller(ProductController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/products')->controller(ProductController::class)->group(function () {
     Route::get('', 'index')->name('products');
     Route::get('create', 'create')->name('products.create');
     Route::post('store', 'store')->name('products.store');
@@ -82,11 +82,11 @@ Route::middleware('auth')->prefix('admin/products')->controller(ProductControlle
     Route::delete('destroy/{product}', 'destroy')->name('products.destroy');
 });
 
-Route::middleware('auth')->prefix('admin/products/photos')->controller(ProductPhotoController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/products/photos')->controller(ProductPhotoController::class)->group(function () {
     Route::delete('remove/{photoId}', 'removePhoto')->name('products.photos.destroy');
 });
 
-Route::middleware('auth')->prefix('admin/categories')->controller(CategoryController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/categories')->controller(CategoryController::class)->group(function () {
     Route::get('', 'index')->name('categories');
     Route::get('create', 'create')->name('categories.create');
     Route::post('store', 'store')->name('categories.store');
@@ -95,6 +95,6 @@ Route::middleware('auth')->prefix('admin/categories')->controller(CategoryContro
     Route::delete('destroy/{category}', 'destroy')->name('categories.destroy');
 });
 
-Route::middleware('auth')->prefix('admin/pedidos')->controller(\App\Http\Controllers\Admin\OrdersController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/pedidos')->controller(\App\Http\Controllers\Admin\OrdersController::class)->group(function () {
     Route::get('', 'index')->name('meus_pedidos');
 });

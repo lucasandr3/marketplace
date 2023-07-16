@@ -36,7 +36,8 @@
                 </li>
                 @foreach($categories as $category)
                     <li class="nav-item @if(request()->is('category/'. $category->slug)) active @endif">
-                        <a class="nav-link @if(request()->is('category/'. $category->slug)) active @endif" aria-current="page"
+                        <a class="nav-link @if(request()->is('category/'. $category->slug)) active @endif"
+                           aria-current="page"
                            href="{{route('category.products', $category->slug)}}">{{$category->name}}</a>
                     </li>
                 @endforeach
@@ -46,30 +47,48 @@
                 {{--                <button class="btn btn-outline-success" type="submit">Pesquisar</button>--}}
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     @auth
-                        <li class="nav-item @if(request()->is('/')) active @endif">
-                            <a class="nav-link" href="#">{{auth()->user()->name}}</a>
-                        </li>
+{{--                        <li class="nav-item @if(request()->is('/')) active @endif">--}}
+{{--                            <a class="nav-link" href="#">{{auth()->user()->name}}</a>--}}
+{{--                        </li>--}}
                         <li class="nav-item @if(request()->is('/meus_pedidos')) active @endif">
-                            <a class="nav-link @if(request()->is('/meus_pedidos')) active @endif" href="{{route('loja.pedidos')}}">Meus Pedidos</a>
+                            <a class="nav-link @if(request()->is('/meus_pedidos')) active @endif"
+                               href="{{route('loja.pedidos')}}">Meus Pedidos</a>
                         </li>
-                        <li class="nav-item @if(request()->is('/')) active @endif">
-                            <a class="nav-link" href="#" onclick="event.preventDefault();
-                                                              document.querySelector('form.logout').submit(); ">Sair</a>
-
-                            <form action="{{route('logout')}}" class="logout" method="POST" style="display:none;">
+                        <li class="nav-item @if(request()->is('/cart')) active @endif">
+                            <a class="nav-link d-flex @if(request()->is('/cart')) active @endif" aria-current="page"
+                               href="{{route('cart')}}">
+                                Carrinho
+                                @if(session()->has('cart'))
+                                    <span class="badge text-bg-danger badge-sm">{{count(session()->get('cart'))}}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)"
+                               onclick="event.preventDefault(); document.querySelector('#logout-store').submit()">
+                                Sair <i class="fa fa-sign-out"></i>
+                            </a>
+                            <form id="logout-store" action="{{route('logout')}}" method="post">
                                 @csrf
                             </form>
                         </li>
+                    @else
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Cadastrar
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{route('register.store')}}">Loja</a></li>
+                                    <li><a class="dropdown-item" href="{{route('register.user')}}">Usuário</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               href="{{route('login')}}"><i class="fa fa-sign-in"></i> Entrar</a>
+                        </li>
                     @endauth
-                    <li class="nav-item @if(request()->is('/cart')) active @endif">
-                        <a class="nav-link d-flex @if(request()->is('/cart')) active @endif" aria-current="page"
-                           href="{{route('cart')}}">
-                            Carrinho
-                            @if(session()->has('cart'))
-                                <span class="badge text-bg-danger badge-sm">{{count(session()->get('cart'))}}</span>
-                            @endif
-                        </a>
-                    </li>
                 </ul>
             </form>
         </div>
@@ -80,7 +99,9 @@
     @include('flash::message')
     @yield('content')
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 @yield('scripts')
 </body>
 </html>

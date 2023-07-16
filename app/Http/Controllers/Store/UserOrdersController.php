@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserOrder;
 use Illuminate\Http\Request;
 
 class UserOrdersController extends Controller
 {
     public function index()
     {
-        $orders = auth()->user()->store->orders()->paginate(10);
-        $store = auth()->user()->store;
-
+        $orders = UserOrder::where('user_id', auth()->id())->paginate(10);
         return view('store.orders', [
-            'orders' => $orders,
-            'store' => $store
+            'orders' => $orders
         ]);
     }
 }

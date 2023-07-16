@@ -12,7 +12,7 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-//        session()->forget('pg_session_code');
+        session()->forget('pg_session_code');
         if (!auth()->check()) {
             return redirect()->route('login');
         }
@@ -40,43 +40,42 @@ class CheckoutController extends Controller
             $dataPayment = $request->all();
             $cartItems = session()->get('cart');
             $user = auth()->user();
-            $reference = 'LIBPHP000001';
+            $reference = generateIdentifyOrder();
             $stores = array_unique(array_column($cartItems, 'store_id'));
 
-            $creditCardPayment = new CreditCard($cartItems, $user, $dataPayment, $reference);
-            $payment = $creditCardPayment->doPayment();
-
-            $userOrder = [
-                'reference' => $reference,
-                'pagseguro_code' => $payment->getCode(),
-                'pagseguro_status' => $payment->getStatus(),
-                'items' => json_encode($cartItems),
-                'store_id' => 42
-            ];
+//            $creditCardPayment = new CreditCard($cartItems, $user, $dataPayment, $reference);
+//            $payment = $creditCardPayment->doPayment();
 
 //            $userOrder = [
 //                'reference' => $reference,
-//                'pagseguro_code' => '123154687897',
-//                'pagseguro_status' => '1',
-//                'items' => json_encode($cartItems),
-//                'store_id' => 42
+//                'pagseguro_code' => $payment->getCode(),
+//                'pagseguro_status' => $payment->getStatus(),
+//                'items' => json_encode($cartItems)
 //            ];
 
-            $userOrder = $user->orders()->create($userOrder);
-            $userOrder->stores()->sync($stores);
+            $dataOrder = [
+                'reference' => $reference,
+                'pagseguro_code' => "fdfdFdf212",
+                'pagseguro_status' => '1',
+                'items' => json_encode($cartItems),
+                'store_id' => 2
+            ];
 
-            session()->forget('cart');
-            session()->forget('pg_session_code');
+            $userOrder = $user->orders()->create($dataOrder);
+            $userOrder->stores()->sync($stores);
+//
+//            session()->forget('cart');
+//            session()->forget('pg_session_code');
 
             return response()->json([
                 'data' => [
                     'status' => true,
                     'message' => 'Compra realizada com sucesso.',
-                    'order' => $payment->getCode()
+                    'order' => '123'
                 ]
             ]);
         } catch (Exception $exception) {
-
+echo "<pre>"; var_dump($exception->getMessage()); echo "</pre>"; die;
             $error = [
                 'store_id' => 42,
                 'message' => $exception->getMessage(),

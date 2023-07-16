@@ -1,10 +1,10 @@
 @extends('layouts.auth')
 
 @section('content')
-    <form method="POST" action="{{ route('register.user') }}">
+    <form method="POST" action="{{ route('register.store') }}">
         @csrf
         <img class="mb-4" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h3 class="h3 mb-3 fw-normal">Cadastro Usuário</h3>
+        <h3 class="h3 mb-3 fw-normal">Cadastro Loja</h3>
 
         <div class="form-floating">
             <input type="text" class="form-control" name="name" placeholder="Nome">

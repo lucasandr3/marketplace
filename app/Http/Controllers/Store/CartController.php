@@ -24,10 +24,11 @@ class CartController extends Controller
         $product = Product::where('slug', $productData['slug'])->first(['name', 'price', 'store_id'])->toArray();
 
         if (empty($product)) {
-            flash('Algo deu errado, tente novamente.');
+            flash('Algo deu errado, tente novamente.')->error();
             return redirect()->back();
         }
 
+        $productData['quantity'] = abs($productData['quantity']);
         $product = array_merge($productData, $product);
 
         if (session()->has('cart')) {
@@ -36,7 +37,7 @@ class CartController extends Controller
             $productsSlugs = array_column($products, 'slug');
 
             if (in_array($product['slug'], $productsSlugs, true)) {
-                $newProducts = $this->productIncrement($product['slug'], $product['quantity'], $products);
+                $newProducts = $this->productIncrement($product['slug'], abs($product['quantity']), $products);
                 session()->put('cart', $newProducts);
             } else {
                 session()->push('cart', $product);

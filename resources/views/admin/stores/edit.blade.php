@@ -1,7 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Criar Loja</h1>
+    <h1>Editar Loja</h1>
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <p><a href="{{route('stores')}}" class="btn btn-outline-secondary btn-sm">Voltar para lojas</a></p>
     @include('flash::message')
     <form action="{{route('stores.update', $store->id)}}" method="post" enctype="multipart/form-data">
