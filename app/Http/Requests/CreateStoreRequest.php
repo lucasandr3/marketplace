@@ -26,7 +26,6 @@ class CreateStoreRequest extends FormRequest
             'description' => 'required|string',
             'phone' => 'required|min:9',
             'mobile_phone' => 'required|min:9',
-            'slug' => 'required',
             'logo' => 'image'
         ];
     }
@@ -34,7 +33,7 @@ class CreateStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => 'Este campo é obrigatório',
+            'required' => 'O campo :attribute é obrigatório',
             'min' => 'Campo deve ter no mínimo :min caracteres',
             'image' => 'Arquivo não é uma imagem valida'
         ];

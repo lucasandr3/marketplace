@@ -32,9 +32,12 @@
         </div>
         @foreach($stores as $store)
             <div class="col-md-4">
-                <img src="{{url('assets/images/'. $store->logo)}}" alt=""/>
+                <img src="{{url('assets/images/'. $store->logo)}}" alt="{{$store->logo}}" class="img-fluid w-25"/>
                 <h5>{{$store->name}}</h5>
-                <p>{{$store->description}}</p>
+                <p class="mb-0">{{$store->description}}</p>
+                <a href="{{route('store.index', $store->slug)}}" class="link-offset-2 link-underline link-underline-opacity-0">
+                    Ver Loja <i class="fa fa-arrow-right"></i>
+                </a>
             </div>
         @endforeach
     </div>

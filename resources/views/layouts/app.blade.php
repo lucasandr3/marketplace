@@ -11,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{route('home')}}">Marketplace</a>
+        <a class="navbar-brand" href="{{route('dashboard')}}">Marketplace</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,9 +27,18 @@
                 <li class="nav-item">
                     <a class="nav-link @if(request()->is('admin/categories')) active @endif" href="{{route('categories')}}">Categorias</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->is('admin/pedidos')) active @endif" href="{{route('meus_pedidos')}}">Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->is('admin/notificacoes')) active @endif" href="{{route('notifications')}}">Notificações</a>
+                </li>
             </ul>
             <div class="d-flex" role="search">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">{{auth()->user()->name}}</a>
+                    </li>
                     <li class="nav-item">
                         <form class="logout" action="{{route('logout')}}" method="post">
                             @csrf
@@ -44,5 +53,6 @@
 <div class="container">
     @yield('content')
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

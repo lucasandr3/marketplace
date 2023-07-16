@@ -26,7 +26,6 @@ class CreateProductRequest extends FormRequest
             'description' => 'required|string',
             'body' => 'required|min:9',
             'price' => 'required',
-            'slug' => 'required',
             'photos' => 'image'
         ];
     }

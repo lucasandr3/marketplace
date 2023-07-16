@@ -3,6 +3,15 @@
 @section('content')
     <h1>Criar Produto</h1>
     <p><a href="{{route('products')}}" class="btn btn-outline-secondary btn-sm">Voltar para produtos</a></p>
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     @include('flash::message')
     <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
         @csrf

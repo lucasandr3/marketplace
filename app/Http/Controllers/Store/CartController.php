@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Store;
 
+use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -17,7 +19,17 @@ class CartController extends Controller
 
     public function add(Request $request)
     {
-        $product = $request->get('product');
+        $productData = $request->get('product');
+
+        $product = Product::where('slug', $productData['slug'])->first(['name', 'price', 'store_id'])->toArray();
+
+        if (empty($product)) {
+            flash('Algo deu errado, tente novamente.')->error();
+            return redirect()->back();
+        }
+
+        $productData['quantity'] = abs($productData['quantity']);
+        $product = array_merge($productData, $product);
 
         if (session()->has('cart')) {
 
@@ -25,7 +37,7 @@ class CartController extends Controller
             $productsSlugs = array_column($products, 'slug');
 
             if (in_array($product['slug'], $productsSlugs, true)) {
-                $newProducts = $this->productIncrement($product['slug'], $product['quantity'], $products);
+                $newProducts = $this->productIncrement($product['slug'], abs($product['quantity']), $products);
                 session()->put('cart', $newProducts);
             } else {
                 session()->push('cart', $product);
