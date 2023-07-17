@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\UserCancelledOrder;
+use App\Events\UserOrderedItems;
+use App\Listeners\UpdateAddingBackItemsInStock;
+use App\Listeners\UpdateRemovingItemsInStock;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
@@ -24,6 +28,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        UserOrderedItems::class => [
+            UpdateRemovingItemsInStock::class
+        ],
+        UserCancelledOrder::class => [
+            UpdateAddingBackItemsInStock::class
+        ]
     ];
 
     /**
