@@ -54,10 +54,19 @@
                             <a class="nav-link @if(request()->is('/meus_pedidos')) active @endif"
                                href="{{route('loja.pedidos')}}">Meus Pedidos</a>
                         </li>
+                        <li class="nav-item @if(request()->is('/quotation')) active @endif">
+                            <a class="nav-link @if(request()->is('/quotation')) active @endif" aria-current="page"
+                               href="{{route('quotation')}}">
+                                <i class="fa fa-exchange" style="font-size: 20px;"></i>
+                                @if(session()->has('quotation'))
+                                    <span class="badge text-bg-danger badge-sm" style="font-size: 8px;">{{count(session()->get('quotation'))}}</span>
+                                @endif
+                            </a>
+                        </li>
                         <li class="nav-item @if(request()->is('/cart')) active @endif">
                             <a class="nav-link d-flex @if(request()->is('/cart')) active @endif" aria-current="page"
                                href="{{route('cart')}}">
-                                Carrinho
+                                <i class="fa fa-shopping-cart"></i>
                                 @if(session()->has('cart'))
                                     <span class="badge text-bg-danger badge-sm">{{count(session()->get('cart'))}}</span>
                                 @endif
@@ -84,12 +93,21 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item @if(request()->is('/quotation')) active @endif">
+                            <a class="nav-link @if(request()->is('/quotation')) active @endif" aria-current="page"
+                               href="{{route('quotation')}}">
+                                <i class="fa fa-exchange" style="font-size: 20px;"></i>
+                                @if(session()->has('quotation'))
+                                    <span class="badge text-bg-danger badge-sm" style="font-size: 8px;">{{count(session()->get('quotation'))}}</span>
+                                @endif
+                            </a>
+                        </li>
                         <li class="nav-item @if(request()->is('/cart')) active @endif">
-                            <a class="nav-link d-flex @if(request()->is('/cart')) active @endif" aria-current="page"
+                            <a class="nav-link @if(request()->is('/cart')) active @endif" aria-current="page"
                                href="{{route('cart')}}">
-                                Carrinho
+                                <i class="fa fa-shopping-cart" style="font-size: 20px;"></i>
                                 @if(session()->has('cart'))
-                                    <span class="badge text-bg-danger badge-sm">{{count(session()->get('cart'))}}</span>
+                                    <span class="badge text-bg-danger badge-sm" style="font-size: 8px;">{{count(session()->get('cart'))}}</span>
                                 @endif
                             </a>
                         </li>

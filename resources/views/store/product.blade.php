@@ -36,6 +36,17 @@
                     </div>
                     <button class="btn btn-success mt-2">Comprar</button>
                 </form>
+                <form action="{{route('quotation.add')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="product[name]" value="{{$product->name}}">
+                    <input type="hidden" name="product[price]" value="{{$product->price}}">
+                    <input type="hidden" name="product[slug]" value="{{$product->slug}}">
+                    <div class="form-group">
+                        <label class="mb-1">Quantidade:</label>
+                        <input type="number" name="product[quantity]" value="1" class="form-control" style="width: 20%" />
+                    </div>
+                    <button class="btn btn-success mt-2">Cotar preço</button>
+                </form>
             </div>
         </div>
     </div>

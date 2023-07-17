@@ -5,11 +5,14 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductPhotoController;
+use App\Http\Controllers\Admin\QuotationController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Store\CartController;
 use App\Http\Controllers\Store\CheckoutController;
+use App\Http\Controllers\Store\CheckoutQuotationController;
 use App\Http\Controllers\Store\HomeController;
 use App\Http\Controllers\Store\ProfileController;
+use App\Http\Controllers\Store\QuotationStoreController;
 use App\Http\Controllers\Store\UserOrdersController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +51,19 @@ Route::prefix('/checkout')->controller(CheckoutController::class)->group(functio
     Route::get('', 'index')->name('checkout');
     Route::post('process', 'process')->name('checkout.process');
     Route::get('obrigado', 'thanks')->name('checkout.thanks');
+});
+
+Route::prefix('cotacao')->controller(QuotationStoreController::class)->group(function () {
+    Route::get('/', 'index')->name('quotation');
+    Route::post('add', 'add')->name('quotation.add');
+    Route::get('cancel', 'cancel')->name('quotation.cancel');
+    Route::get('remove/{slug}', 'remove')->name('quotation.remove');
+});
+
+Route::prefix('/concluir/cotacao')->controller(CheckoutQuotationController::class)->group(function () {
+    Route::get('', 'index')->name('checkout.quotation');
+    Route::post('process', 'process')->name('checkout.quotation.process');
+    Route::get('obrigado', 'thanks')->name('checkout.quotation.thanks');
 });
 
 Route::prefix('/meus_pedidos')->controller(UserOrdersController::class)->group(function () {
@@ -99,6 +115,10 @@ Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/categor
 
 Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/pedidos')->controller(OrdersController::class)->group(function () {
     Route::get('', 'index')->name('meus_pedidos');
+});
+
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/cotacoes')->controller(QuotationController::class)->group(function () {
+    Route::get('', 'index')->name('cotacoes');
 });
 
 Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/notificacoes')->controller(NotificationController::class)->group(function () {

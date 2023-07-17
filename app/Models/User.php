@@ -56,6 +56,11 @@ class User extends Authenticatable
         return $this->hasMany(UserOrder::class);
     }
 
+    public function quotations(): HasMany
+    {
+        return $this->hasMany(UserQuotation::class);
+    }
+
     public function saleOrders(): HasMany
     {
         return $this->hasMany(UserOrderError::class);
