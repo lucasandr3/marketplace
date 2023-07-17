@@ -123,4 +123,6 @@ Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/cotacoe
 
 Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/notificacoes')->controller(NotificationController::class)->group(function () {
     Route::get('', 'notifications')->name('notifications');
+    Route::get('marcar/{notification}', 'readOne')->name('notifications.read');
+    Route::get('marcar_todas', 'readall')->name('notifications.readall');
 });

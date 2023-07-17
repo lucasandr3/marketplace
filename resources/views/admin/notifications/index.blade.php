@@ -13,7 +13,7 @@
             <p>Você ainda não possui nenhuma notificação</p>
         </div>
     @else
-        <p><a href="#" class="btn btn-outline-secondary btn-sm">Marcar todas como lida(s)</a></p>
+        <p><a href="{{route('notifications.readall')}}" class="btn btn-outline-success btn-sm">Marcar todas como lida(s)</a></p>
         @include('flash::message')
         <table class="table table-striped">
             <thead>
@@ -24,13 +24,15 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($notifications as $notication)
+            @foreach($notifications as $notification)
                 <tr>
-                    <td>{{$notication->data['message']}}</td>
-                    <td>{{$notication->created_at->locale('pt')->diffForHumans()}}</td>
+                    <td>{{$notification->data['message']}}</td>
+                    <td>{{$notification->created_at->locale('pt')->diffForHumans()}}</td>
                     <td>
                         <div class="btn-group">
-                            <a href="#" class="btn btn-primary btn-sm">Marcar como lida</a>
+                            <a href="{{route('notifications.read', $notification['id'])}}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-check"></i> Marcar como lida
+                            </a>
                         </div>
                     </td>
                 </tr>
