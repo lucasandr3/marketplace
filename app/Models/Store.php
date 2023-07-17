@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\StoreReceiveNewOrder;
+use App\Notifications\StoreReceiveNewQuotation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,5 +45,19 @@ class Store extends Model
         $stores->map(function($store){
             return $store->owner()->first();
         })->each->notify(new StoreReceiveNewOrder());
+    }
+
+    public function quotations(): BelongsToMany
+    {
+        return $this->belongsToMany(UserQuotation::class, 'quotation_stores');
+    }
+
+    public function notifyQuotationStoreOwners(array $codStores = [])
+    {
+        $stores = $this->whereIn('id', $codStores)->get();
+
+        $stores->map(function($store){
+            return $store->owner()->first();
+        })->each->notify(new StoreReceiveNewQuotation());
     }
 }
