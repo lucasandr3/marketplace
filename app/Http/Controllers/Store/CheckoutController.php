@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Store;
 
+use App\Events\UserOrderedItems;
 use App\Http\Controllers\Controller;
 use App\Models\Store;
 use App\Payment\PagSeguro\CreditCard;
@@ -65,11 +66,12 @@ class CheckoutController extends Controller
             $userOrder = $user->orders()->create($dataOrder);
             $userOrder->stores()->sync($stores);
 
+            event(new UserOrderedItems($userOrder));
             // notifica as lojas
             (new Store())->notifyStoreOwners($stores);
-//
-//            session()->forget('cart');
-//            session()->forget('pg_session_code');
+
+            session()->forget('cart');
+            session()->forget('pg_session_code');
 
             return response()->json([
                 'data' => [
@@ -79,7 +81,7 @@ class CheckoutController extends Controller
                 ]
             ]);
         } catch (Exception $exception) {
-echo "<pre>"; var_dump($exception->getMessage()); echo "</pre>"; die;
+
             $error = [
                 'store_id' => 42,
                 'message' => $exception->getMessage(),

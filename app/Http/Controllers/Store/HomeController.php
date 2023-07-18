@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Store;
 
+use App\Events\UserOrderedItems;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Store;
