@@ -1,83 +1,68 @@
 @extends('layouts.auth')
 
+@section('title', 'Login')
+
 @section('content')
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center">
+        <div class="auth-box p-4 bg-white rounded">
+            <div id="loginform">
+                <div class="logo text-center">
+                    {{--                    <h3 class="box-title mb-3">OnLicitação</h3>--}}
+                    <img src="{{url('painel/images/logo-blue.png')}}" width="80px"/>
+                    <h2>Marketplace</h2>
+                </div>
+                <!-- Form -->
+                <div class="row">
+                    <div class="col-12">
+                        <form class="form-horizontal mt-3" method="post" action="{{ route('login') }}">
+                            @csrf
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-        <img class="mb-4" src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-        <h1 class="h3 mb-3 fw-normal">Login</h1>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-user"></i></span>
+                                </div>
+                                <input type="email" class="form-control" placeholder="Digite seu e-mail"
+                                       aria-label="Username" aria-describedby="basic-addon1" name="email"
+                                       value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            </div>
 
-        <div class="form-floating">
-            <input type="email" class="form-control" id="floatingInput" name="email" placeholder="E-mail">
-            <label for="floatingInput">E-mail</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" placeholder="Digite sua senha"
+                                       aria-label="Username" aria-describedby="basic-addon1" name="password" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="d-flex">
+                                    <div class="checkbox checkbox-info pt-0">
+                                        <input id="checkbox-signup" type="checkbox"
+                                               class="material-inputs chk-col-indigo" name="remember"
+                                               id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <label for="checkbox-signup"> Manter Conectado </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group text-center mt-4">
+                                <div class="col-xs-12">
+                                    <button
+                                        class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light"
+                                        type="submit">Entrar
+                                    </button>
+                                </div>
+                            </div>
+                            {{--                            <div class="form-group mb-0 mt-4">--}}
+                            {{--                                <div class="col-sm-12 justify-content-center d-flex">--}}
+                            {{--                                    <p>Esqueceu a senha? <a href="{{ route('password.request') }}"--}}
+                            {{--                                                            class="text-info font-weight-normal ml-1">Clique aqui</a>--}}
+                            {{--                                    </p>--}}
+                            {{--                                </div>--}}
+                            {{--                            </div>--}}
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Senha">
-            <label for="floatingPassword">Senha</label>
-        </div>
-
-        <div class="form-check text-start my-3">
-            <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                Manter conectado
-            </label>
-        </div>
-        <button class="btn btn-primary w-100 py-2" type="submit">Entrar</button>
-        <div class="mt-3">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    Esqueceu sua senha?
-                </a>
-            @endif
-        </div>
-    </form>
+    </div>
 @endsection
 
-{{--<x-guest-layout>--}}
-{{--    <!-- Session Status -->--}}
-{{--    <x-auth-session-status class="mb-4" :status="session('status')" />--}}
-
-{{--    <form method="POST" action="{{ route('login') }}">--}}
-{{--        @csrf--}}
-
-{{--        <!-- Email Address -->--}}
-{{--        <div>--}}
-{{--            <x-input-label for="email" :value="__('Email')" />--}}
-{{--            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />--}}
-{{--            <x-input-error :messages="$errors->get('email')" class="mt-2" />--}}
-{{--        </div>--}}
-
-{{--        <!-- Password -->--}}
-{{--        <div class="mt-4">--}}
-{{--            <x-input-label for="password" :value="__('Password')" />--}}
-
-{{--            <x-text-input id="password" class="block mt-1 w-full"--}}
-{{--                            type="password"--}}
-{{--                            name="password"--}}
-{{--                            required autocomplete="current-password" />--}}
-
-{{--            <x-input-error :messages="$errors->get('password')" class="mt-2" />--}}
-{{--        </div>--}}
-
-{{--        <!-- Remember Me -->--}}
-{{--        <div class="block mt-4">--}}
-{{--            <label for="remember_me" class="inline-flex items-center">--}}
-{{--                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">--}}
-{{--                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>--}}
-{{--            </label>--}}
-{{--        </div>--}}
-
-{{--        <div class="flex items-center justify-end mt-4">--}}
-{{--            @if (Route::has('password.request'))--}}
-{{--                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">--}}
-{{--                    {{ __('Forgot your password?') }}--}}
-{{--                </a>--}}
-{{--            @endif--}}
-
-{{--            <x-primary-button class="ml-3">--}}
-{{--                {{ __('Log in') }}--}}
-{{--            </x-primary-button>--}}
-{{--        </div>--}}
-{{--    </form>--}}
-{{--</x-guest-layout>--}}

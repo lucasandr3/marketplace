@@ -1,0 +1,348 @@
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #1e88e5 #ccc;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 7px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #ccc;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #1e88e5;
+    border-radius: 0;
+    border: 0;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+.radius-3 {
+    border-radius: 3px !important;
+}
+
+.table td, .table th {
+    vertical-align: inherit !important;
+}
+
+input, select {
+    height: 50px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 50px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px;
+}
+
+.select2-container--classic .select2-selection--single, .select2-container--default .select2-selection--multiple, .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-selection__arrow, .select2-container--default .select2-selection--single .select2-selection__rendered {
+    border-color: #e9ecef;
+    color: #67757c;
+    height: 50px;
+    line-height: 48px;
+}
+
+.select2-container--classic .select2-selection--single, .select2-container--default .select2-selection--multiple, .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-selection__arrow, .select2-container--default .select2-selection--single .select2-selection__rendered .multi-escolhas {
+    line-height: 35px;
+}
+
+.h4-processo {
+    background-color: rgba(0, 0, 0, .03);
+    padding: 10px;
+    margin-left: -40px;
+    margin-right: -40px;
+}
+
+.left-part {
+    height: calc(100vh - 126px);
+}
+
+.hide {
+    display: none;
+}
+
+.lobilist-footer {
+    text-align: center;
+}
+
+.papper {
+    background: white;
+    padding: 20px 180px;
+}
+
+.papper-a4 {
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 6px 1px #ccc;
+}
+
+.papper-head {
+    padding: 0 50px;
+    margin: 50px 0 50px 0px;
+}
+
+.papper-body {
+    padding: 60px 50px;
+    margin-bottom: 50px;
+}
+
+.papper-body p {
+    margin-bottom: 0;
+}
+
+.papper-footer {
+
+}
+
+.linha-assinatura {
+    width: 300px;
+    border-color: #000000;
+    margin-bottom: 0;
+}
+
+
+.papper-pdf {
+    background: white;
+    padding: 0px 50px;
+}
+
+.papper-a4-pdf {
+    /*border: 1px solid #ccc;*/
+}
+
+.papper-head-pdf {
+    padding: 0;
+    margin: 10px 0 40px 0px;
+}
+
+.papper-body-pdf {
+    padding: 0;
+    margin-bottom: 50px;
+    text-align: justify-all;
+}
+
+.papper-body-pdf p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.papper-footer-pdf {
+
+}
+
+.linha-assinatura-pdf {
+    width: 300px;
+    border-color: #000000;
+    margin-bottom: 0;
+    border: 0;
+    border-top: 1px solid;
+}
+
+.responsavel-pdf {
+    text-align: center;
+    margin-top: -10px;
+}
+
+.responsavel-pdf p {
+    margin-bottom: -15px;
+}
+
+.p-pdf {
+    margin-bottom: -15px;
+}
+
+.page-wrapper {
+    transition: none !important;
+}
+
+.notify .heartbit {
+    position: absolute;
+    top: -23px;
+    right: -2px;
+    height: 25px;
+    width: 25px;
+    z-index: 10;
+    border: 5px solid #ffb22b;
+    border-radius: 70px;
+    -moz-animation: heartbit 1s ease-out;
+    -moz-animation-iteration-count: infinite;
+    -o-animation: heartbit 1s ease-out;
+    -o-animation-iteration-count: infinite;
+    -webkit-animation: heartbit 1s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+
+.notify .point {
+    width: 9px;
+    height: 9px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    background-color: #ffb22b;
+    position: absolute;
+    right: 6px;
+    top: -14px;
+}
+
+.swal2-title {
+    font-size: 1.0rem !important;
+}
+
+.desc {
+    width: 350px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.desc p {
+    width: 350px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+}
+
+.ver-mais {
+    color: #0f74a8 !important;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.header-relatorio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-relatorio img {
+    max-width: 120px;
+}
+
+.center {
+    text-align: center;
+}
+
+.font-rel {
+    font-size: 12px;
+}
+
+.border-3 {
+    border-radius: 3px;
+}
+
+.border-5 {
+    border-radius: 5px;
+}
+
+.modal-btns-actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    background: #ffffff;
+}
+
+.relative-frete {
+    position: absolute;
+    left: 97px;
+    top: 36px;
+    right: 0px;
+    width: 80px;
+}
+
+.relative-frete select {
+    border: none !important;
+    height: 47px !important;
+}
+
+label {
+    font-weight: 500;
+}
+
+.menu-toggle {
+    display: block;
+    /*background-color: #ffffff;*/
+    /*color: #333;*/
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.offcanvas-backdrop.show {
+    opacity: .5;
+}
+
+.offcanvas-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+}
+
+.fade {
+    transition: opacity .15s linear;
+}
+
+.offcanvas-menu {
+    position: fixed;
+    top: 0;
+    /*left: -250px; !* Inicialmente, o menu estará fora da visualização *!*/
+    right: -500px; /* Inicialmente, o menu estará fora da visualização */
+    width: 450px;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    overflow-x: hidden;
+    z-index: 9999;
+    transition: right 0.3s ease;
+}
+
+.offcanvas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.offcanvas-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.offcanvas-menu li {
+    margin-bottom: 10px;
+}
+
+/*.offcanvas-menu a {*/
+/*    color: #fff;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/* Mostrar o menu Offcanvas quando ativado */
+.menu-open .offcanvas-menu {
+    /*left: 0;*/
+    right: 0;
+}
+

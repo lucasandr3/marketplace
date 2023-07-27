@@ -24,14 +24,15 @@ class StoreController extends Controller
     public function index()
     {
         $store = auth()->user()->store;
-        return view('admin.stores.index', [
-            'store' => $store ?? []
+        return view('admin.pages.stores.index', [
+            'stores' => [$store] ?? [],
+            'filters' => []
         ]);
     }
 
     public function create()
     {
-        return view('admin.stores.create');
+        return view('admin.pages.stores.create');
     }
 
     public function store(CreateStoreRequest $request)
@@ -50,10 +51,18 @@ class StoreController extends Controller
         return redirect()->route('stores');
     }
 
+    public function show($store)
+    {
+        $store = Store::find($store);
+        return view('admin.pages.stores.show', [
+            'store' => $store
+        ]);
+    }
+
     public function edit($store)
     {
         $store = Store::find($store);
-        return view('admin.stores.edit', [
+        return view('admin.pages.stores.edit', [
             'store' => $store
         ]);
     }
