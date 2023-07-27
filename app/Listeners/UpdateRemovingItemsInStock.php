@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\UserOrderedItems;
+use App\Http\Services\ProductStockManager;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -21,6 +22,6 @@ class UpdateRemovingItemsInStock
      */
     public function handle(UserOrderedItems $event): void
     {
-        //
+        (new ProductStockManager($event->userOrder))->removeProductFromStock();
     }
 }

@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryCreateRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $categories = Category::paginate(10);
 
@@ -18,12 +20,12 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('admin.categories.create');
     }
 
-    public function store(CategoryCreateRequest $request)
+    public function store(CategoryCreateRequest $request): RedirectResponse
     {
         $data = $request->all();
 
@@ -33,7 +35,7 @@ class CategoryController extends Controller
         return redirect()->route('categories');
     }
 
-    public function edit($category)
+    public function edit($category): View
     {
         $category = Category::findOrFail($category);
 
@@ -42,7 +44,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(CategoryUpdateRequest $request, $category)
+    public function update(CategoryUpdateRequest $request, $category): RedirectResponse
     {
         $data = $request->all();
 
@@ -53,7 +55,7 @@ class CategoryController extends Controller
         return redirect()->route('categories');
     }
 
-    public function destroy($category)
+    public function destroy($category): RedirectResponse
     {
         $category = Category::find($category);
         $category->delete();

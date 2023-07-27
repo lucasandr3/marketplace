@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductPhotoController;
 use App\Http\Controllers\Admin\QuotationController;
 use App\Http\Controllers\Admin\StoreController;
+use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\Store\CartController;
 use App\Http\Controllers\Store\CheckoutController;
 use App\Http\Controllers\Store\CheckoutQuotationController;
@@ -30,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/')->controller(HomeController::class)->group(function () {
     Route::get('', 'index')->name('home');
     Route::get('produto/{slug}', 'single')->name('product.single');
+    Route::post('/calcular-frete', 'calcularFrete');
 });
 
 Route::prefix('/category')->controller(\App\Http\Controllers\Store\CategoryController::class)->group(function () {
@@ -86,6 +88,7 @@ Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/stores'
     Route::get('', 'index')->name('stores');
     Route::get('create', 'create')->name('stores.create');
     Route::post('store', 'store')->name('stores.store');
+    Route::get('{store}/ver', 'show')->name('stores.show');
     Route::get('{store}/edit', 'edit')->name('stores.edit');
     Route::put('update/{store}', 'update')->name('stores.update');
     Route::delete('destroy/{store}', 'destroy')->name('stores.destroy');
@@ -95,6 +98,7 @@ Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/product
     Route::get('', 'index')->name('products');
     Route::get('create', 'create')->name('products.create');
     Route::post('store', 'store')->name('products.store');
+    Route::get('{product}/show', 'show')->name('products.show');
     Route::get('{product}/edit', 'edit')->name('products.edit');
     Route::put('update/{product}', 'update')->name('products.update');
     Route::delete('destroy/{product}', 'destroy')->name('products.destroy');
@@ -125,4 +129,9 @@ Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/notific
     Route::get('', 'notifications')->name('notifications');
     Route::get('marcar/{notification}', 'readOne')->name('notifications.read');
     Route::get('marcar_todas', 'readall')->name('notifications.readall');
+});
+
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/theme')->controller(ThemeController::class)->group(function () {
+    Route::get('', [ThemeController::class, 'getThemeByUser']);
+    Route::post('dashboard/update_theme', [ThemeController::class, 'updateThemeByUser']);
 });

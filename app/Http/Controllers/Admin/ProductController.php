@@ -28,15 +28,16 @@ class ProductController extends Controller
             $products = $storeUser->products()->paginate(10);
         }
 
-        return view('admin.products.index', [
-            'products' => !empty($storeUser) ? $products : []
+        return view('admin.pages.products.index', [
+            'products' => !empty($storeUser) ? $products : [],
+            'filters' => []
         ]);
     }
 
     public function create()
     {
         $categories = Category::all(['id', 'name']);
-        return view('admin.products.create', [
+        return view('admin.pages.products.create', [
             'categories' => $categories
         ]);
     }
@@ -63,6 +64,16 @@ class ProductController extends Controller
         return redirect()->route('products');
     }
 
+    public function show($product)
+    {
+        $product = Product::find($product);
+        $categories = Category::all(['id', 'name']);
+
+        return view('admin.pages.products.show', [
+            'product' => $product,
+            'categories' => $categories
+        ]);
+    }
     public function edit($product)
     {
         $product = Product::find($product);
