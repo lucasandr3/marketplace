@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <div class="col-md-5 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
             <li class="breadcrumb-item active">Configurações</li>
         </ol>
     </div>
@@ -27,16 +27,10 @@
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                              aria-orientation="vertical">
                             <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill"
-                               href="#v-pills-home" role="tab" aria-controls="v-pills-home"
+                               href="#v-pills-loja" role="tab" aria-controls="v-pills-home"
                                aria-selected="true">
                                 <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
-                                <span class="d-none d-lg-block">Unidades</span>
-                            </a>
-                            <a class="nav-link" id="v-pills-home-tab" data-toggle="pill"
-                               href="#v-pills-departments" role="tab" aria-controls="v-pills-departments"
-                               aria-selected="true">
-                                <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
-                                <span class="d-none d-lg-block">Departamentos</span>
+                                <span class="d-none d-lg-block">Loja</span>
                             </a>
                             <a class="nav-link" id="v-pills-payment-tab" data-toggle="pill"
                                href="#v-pills-payment" role="tab" aria-controls="v-pills-profile"
@@ -44,23 +38,11 @@
                                 <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
                                 <span class="d-none d-lg-block">Tipos de Pagamento</span>
                             </a>
-                            <a class="nav-link" id="modalities-tab" data-toggle="pill"
-                               href="#modalities" role="tab" aria-controls="modalities"
+                            <a class="nav-link" id="v-pills-frete-tab" data-toggle="pill"
+                               href="#v-pills-frete" role="tab" aria-controls="v-pills-frete"
                                aria-selected="false">
-                                <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
-                                <span class="d-none d-lg-block">Modalidades</span>
-                            </a>
-                            <a class="nav-link" id="judgments-tab" data-toggle="pill"
-                               href="#judgments" role="tab" aria-controls="judgments"
-                               aria-selected="false">
-                                <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
-                                <span class="d-none d-lg-block">Tipos de Julgamento</span>
-                            </a>
-                            <a class="nav-link" id="steps-tab" data-toggle="pill"
-                               href="#steps" role="tab" aria-controls="steps"
-                               aria-selected="false">
-                                <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
-                                <span class="d-none d-lg-block">Tarefas Planer</span>
+                                <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+                                <span class="d-none d-lg-block">Frete</span>
                             </a>
                             <a class="nav-link" id="theme-tab" data-toggle="pill"
                                href="#theme" role="tab" aria-controls="theme"
@@ -73,20 +55,14 @@
 
                     <div class="col-sm-9">
                         <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel"
+                            <div class="tab-pane fade active show" id="v-pills-loja" role="tabpanel"
                                  aria-labelledby="v-pills-home-tab">
                                 <h5>Aqui você configura as unidades do sistema.</h5>
                                 <p>Unidades são ou é a empresa que irá participar das licitações</p>
-                                <p><b>0 Unidade(s)</b></p>
+                                <p><b>{{$quantities->get('totalStores')}} Loja(s)</b></p>
                                 <p><a href="#">Configurar <i class="mdi mdi-arrow-right"></i></a></p>
                             </div>
-                            <div class="tab-pane fade" id="v-pills-departments" role="tabpanel"
-                                 aria-labelledby="v-pills-departments-tab">
-                                <h5>Aqui você configura os departamentos do sistema.</h5>
-                                <p>Departamentos são os setores da empresa que irá participar das licitações</p>
-                                <p><b>0 Departamentos(s)</b></p>
-                                <p><a href="#">Configurar <i class="mdi mdi-arrow-right"></i></a></p>
-                            </div>
+
                             <div class="tab-pane fade" id="v-pills-payment" role="tabpanel"
                                  aria-labelledby="v-pills-payment-tab">
                                 <h5>Aqui você configura os Tipos de Pagamento do sistema.</h5>
@@ -94,25 +70,11 @@
                                 <p><b>0 Tipos de Pagamento(s)</b></p>
                                 <p><a href="#">Configurar <i class="mdi mdi-arrow-right"></i></a></p>
                             </div>
-                            <div class="tab-pane fade" id="modalities" role="tabpanel"
-                                 aria-labelledby="modalities-tab-tab">
-                                <h5>Aqui você configura as Modalidades do sistema.</h5>
-                                <p>Modalidades são os tipos de licitações, ex: pregão eletrônico, etc...</p>
-                                <p><b>0 Modalidade(s)</b></p>
-                                <p><a href="#">Configurar <i class="mdi mdi-arrow-right"></i></a></p>
-                            </div>
-                            <div class="tab-pane fade" id="judgments" role="tabpanel"
-                                 aria-labelledby="judgments-tab-tab">
-                                <h5>Aqui você configura os tipos de Julgamento do sistema.</h5>
-                                <p>Os tipos de julgamento é o critério de julgamento da licitação, Ex: Item, etc...</p>
-                                <p><b>0 Tipos de Julgamento(s)</b></p>
-                                <p><a href="#">Configurar <i class="mdi mdi-arrow-right"></i></a></p>
-                            </div>
-                            <div class="tab-pane fade" id="steps" role="tabpanel"
-                                 aria-labelledby="steps-tab-tab">
-                                <h5>Aqui você configura as tarefas do planer.</h5>
-                                <p>As tarefas ficam na central de licitações</p>
-                                <p><b>0 Tarefa(s)</b></p>
+                            <div class="tab-pane fade" id="v-pills-frete" role="tabpanel"
+                                 aria-labelledby="v-pills-frete-tab">
+                                <h5>Aqui você configura os Tipos de Frete.</h5>
+                                <p>Serviços de entrega de produtos</p>
+                                <p><b>Frete</b></p>
                                 <p><a href="#">Configurar <i class="mdi mdi-arrow-right"></i></a></p>
                             </div>
                             <div class="tab-pane fade" id="theme" role="tabpanel"

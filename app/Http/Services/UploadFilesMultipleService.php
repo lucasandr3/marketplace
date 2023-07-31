@@ -2,7 +2,7 @@
 
 namespace App\Http\Services;
 
-use App\Http\Interfaces\UploadFilesServiceInterface;
+use App\Http\Interfaces\Services\UploadFilesServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;

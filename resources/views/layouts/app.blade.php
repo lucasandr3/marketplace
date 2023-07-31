@@ -82,7 +82,7 @@
                 @include('flash::message')
                 @yield('content')
                 <!-- Row -->
-                <div id="backdropOffcanvas" class="fade" onclick="removeAndCloseBackdrop()"></div>
+                <div id="backdropOffcanvas" onclick="removeAndCloseBackdrop(this)"></div>
             </div>
         @endif
 
@@ -148,25 +148,55 @@
 <script type="module" src="{{url('painel/js/uploadFile.js')}}"></script>
 
 <script>
-    function toggleMenuOffcanvas() {
-        let menu = document.querySelector('.offcanvas-menu');
+    function toggleMenuOffcanvas(target) {
+        let menu = document.querySelector(`.${target}`);
         let backdrop = document.querySelector('#backdropOffcanvas');
 
         if (menu.style.right === '0px') {
             menu.style.right = '-500px';
-            backdrop.classList.remove('offcanvas-backdrop', 'show')
+            backdrop.classList.remove('offcanvas-backdrop', 'show', target)
         } else {
-            backdrop.classList.add('offcanvas-backdrop', 'show')
+            backdrop.classList.add('offcanvas-backdrop', 'show', target)
             menu.style.right = 0;
         }
     }
 
-    function removeAndCloseBackdrop() {
-        let menu = document.querySelector('.offcanvas-menu');
+    function removeAndCloseBackdrop(element) {
+        let menu = document.querySelector(`offcanvas-menu, .${element.classList[2]}`);
         let backdrop = document.querySelector('#backdropOffcanvas');
-        backdrop.classList.remove('offcanvas-backdrop', 'show')
+        backdrop.classList.remove('offcanvas-backdrop', 'show', element.classList[2])
         menu.style.right = '-500px';
     }
+
+    function mostrarPrecoGrupoCliente() {
+        console.log('grupo')
+        let content = document.querySelector('#preco-grupo-clientes-div');
+        content.classList.toggle('sr-only');
+    }
+
+    function mostrarPrecoQtdComprada() {
+        console.log('quantidade')
+        let content = document.querySelector('#preco-qtd-desconto-div');
+        content.classList.toggle('sr-only');
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Obtém a referência para o checkbox "Marcar todos"
+        const checkAllCheckbox = document.querySelector('#checkbox_todos');
+        console.log(checkAllCheckbox)
+        // Obtém todas as referências dos checkboxes individuais
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+        // Define um evento de clique para o checkbox "Marcar todos"
+        checkAllCheckbox.addEventListener('click', function () {
+            // Define o valor de 'checked' de cada checkbox individual para o valor do checkbox "Marcar todos"
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = checkAllCheckbox.checked;
+            });
+        });
+    })
 </script>
 
 @stack('scripts')

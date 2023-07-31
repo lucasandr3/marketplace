@@ -255,7 +255,7 @@
             <h1><span>4</span><span>0</span><span>4</span></h1>
         </div>
         <h2>desculpe, mas a página que você solicitou não foi encontrada</h2>
-        <a href="{{route('dashboard')}}" class="btn btn-primary">Voltar para Home</a>
+        <a href="{{route('hub')}}" class="btn btn-primary">Voltar para Home</a>
     </div>
 </div>
 

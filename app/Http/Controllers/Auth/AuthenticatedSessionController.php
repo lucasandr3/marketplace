@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (auth()->user()->role === 'ROLE_OWNER') {
-            return redirect()->route('dashboard');
+            return redirect()->route('hub');
         }
 
         if (auth()->user()->role === 'ROLE_USER' && session()->has('cart')) {

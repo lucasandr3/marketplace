@@ -125,7 +125,7 @@ $(function() {
 });
 
 function updateTheme(where, value) {
-    fetch('/dashboard/update_theme', {
+    fetch('/hub/tema/atualizar_tema', {
         method: 'post',
         body: JSON.stringify({where, value}),
         headers: {

@@ -17,7 +17,7 @@ class UserHasStoreMiddleware
     {
         $quantityStores = auth()->user()->store()->count() ?? 0;
 
-        if ($quantityStores > 1) {
+        if ($quantityStores > 0) {
             flash("Você já possui {$quantityStores} loja(s) cadastrada.")->warning();
             return redirect()->back();
         }

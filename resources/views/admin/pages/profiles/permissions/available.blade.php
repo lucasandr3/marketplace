@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <div class="col-md-12 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
             <li class="breadcrumb-item active"><a href="{{route('perfis.index')}}">Perfis</a></li>
             <li class="breadcrumb-item active"><a href="{{route('perfis.show', $profile->id)}}">{{$profile->name}}</a></li>
             <li class="breadcrumb-item active">Permissões Disponíveis</li>

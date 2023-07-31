@@ -14,7 +14,7 @@
 @section('breadcrumb')
     <div class="col-md-5 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{route('gestao.index')}}">Central de Licitações</a></li>
             <li class="breadcrumb-item active">Processo - {{$process->my_number}}</li>
         </ol>
