@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <div class="col-md-5 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
             <li class="breadcrumb-item active">Categorias</li>
         </ol>
     </div>
@@ -15,7 +15,7 @@
     <div class="widget-content searchable-container list">
 
         <div class="card card-body mb-0">
-            <form action="{{route('categorias.filter')}}" method="post">
+            <form action="#" method="post">
                 @csrf
                 <div class="mb-2 p-2">
                     <div class="row mb-3">
@@ -42,7 +42,7 @@
                                 </button>
                             </div>
                             <div class="input-group-append ml-1">
-                                <a href="{{route('categorias.create')}}" class="btn btn-info" style="border-radius: 5px;padding: 15px;" >
+                                <a href="{{route('categories.create')}}" class="btn btn-info" style="border-radius: 5px;padding: 15px;" >
                                     Cadastrar Categoria <i class="mdi mdi-arrow-right font-16 mr-1"></i>
                                 </a>
                             </div>
@@ -60,7 +60,6 @@
                         <tr>
                             <th class="text-light font-weight-bold">Categoria</th>
                             <th class="text-light font-weight-bold">QTDE. produtos cadastrados</th>
-                            <th class="text-light font-weight-bold">Status</th>
                             <th class="text-light font-weight-bold text-right">Ações</th>
                         </tr>
                         </thead>
@@ -72,30 +71,21 @@
                                     {{$category->name}}
                                 </td>
                                 <td>
-                                    {{$category->products->count()}}
-                                </td>
-                                <td>
-                                    <p class="{{$category->status->class}} mb-0">
-                                        {{$category->status->label}}
-                                    </p>
+                                    {{$category->products()->count()}}
                                 </td>
                                 <td class="text-right">
                                     <div class="action-btn">
-                                        <a href="{{route('categorias.edit', $category->id)}}"
+                                        <a href="{{route('categories.edit', $category->id)}}"
                                            class="btn waves-effect waves-light btn-info" data-toggle="tooltip"
                                            title="Editar">
                                             <i class="mdi mdi-pen"></i>
                                         </a>
-                                        <a href="{{route('categorias.show', $category->id)}}"
-                                           class="btn waves-effect waves-light btn-warning" data-toggle="tooltip"
-                                           title="Ver">
-                                            <i class="mdi mdi-eye"></i>
-                                        </a>
-                                        <a href="{{route('categorias.products', $category->id)}}"
-                                           class="btn waves-effect waves-light btn-success" data-toggle="tooltip"
-                                           title="Produtos da categoria">
-                                            <i class="fa fa-cubes"></i>
-                                        </a>
+                                        <form action="{{route('categories.destroy', $category->id)}}" method="post" style="display: inline-flex;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger" data-toggle="tooltip"
+                                                    title="Excluir"><i class="mdi mdi-delete"></i></button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

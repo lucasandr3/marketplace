@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Http\Interfaces\UploadFilesServiceInterface;
-use App\Http\Services\UploadFilesMultipleService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -15,8 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(UploadFilesServiceInterface::class, UploadFilesMultipleService::class);
-
         Model::preventLazyLoading(!app()->isProduction());
     }
 
@@ -25,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Paginator::useBootstrap();
+        Paginator::useBootstrapFive();
     }
 }

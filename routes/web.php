@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ConfiguracaoController;
+use App\Http\Controllers\Admin\HubController;
+use App\Http\Controllers\Admin\MyProfileController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductController;
@@ -72,10 +75,6 @@ Route::prefix('/meus_pedidos')->controller(UserOrdersController::class)->group(f
     Route::get('', 'index')->name('loja.pedidos');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', 'access.control.store.admin'])->name('dashboard');
-
 Route::middleware(['auth', 'access.control.store.admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -84,54 +83,74 @@ Route::middleware(['auth', 'access.control.store.admin'])->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/stores')->controller(StoreController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('/meus_dados')->controller(MyProfileController::class)->group(function () {
+    Route::get('', 'index')->name('perfil');
+    Route::get('atualizar_dados/{id}', 'edit')->name('perfil.edit');
+    Route::put('atualizar_dados/{id}', 'update')->name('perfil.update');
+});
+
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('/configuracoes')->controller(ConfiguracaoController::class)->group(function () {
+    Route::get('', 'index')->name('configuracoes');
+});
+
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('/hub')->controller(HubController::class)->group(function () {
+    Route::get('', 'index')->name('hub');
+
+    Route::get('graphic_bars', 'graphicbars')->name('hub.graphic');
+    Route::get('graphic_lines', 'graphicline')->name('hub.graphic.line');
+    Route::get('graphic_platforms', 'bestplatforms')->name('hub.graphic.platforms');
+    Route::get('graphic_items', 'bestitems')->name('hub.graphic.items');
+});
+
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('hub/lojas')->controller(StoreController::class)->group(function () {
     Route::get('', 'index')->name('stores');
-    Route::get('create', 'create')->name('stores.create');
-    Route::post('store', 'store')->name('stores.store');
+    Route::get('novo', 'create')->name('stores.create');
+    Route::post('salvar', 'store')->name('stores.store');
     Route::get('{store}/ver', 'show')->name('stores.show');
-    Route::get('{store}/edit', 'edit')->name('stores.edit');
-    Route::put('update/{store}', 'update')->name('stores.update');
-    Route::delete('destroy/{store}', 'destroy')->name('stores.destroy');
+    Route::get('{store}/editar', 'edit')->name('stores.edit');
+    Route::put('atualizar/{store}', 'update')->name('stores.update');
+    Route::delete('excluir/{store}', 'destroy')->name('stores.destroy');
 });
 
-Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/products')->controller(ProductController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('hub/produtos')->controller(ProductController::class)->group(function () {
     Route::get('', 'index')->name('products');
-    Route::get('create', 'create')->name('products.create');
-    Route::post('store', 'store')->name('products.store');
-    Route::get('{product}/show', 'show')->name('products.show');
-    Route::get('{product}/edit', 'edit')->name('products.edit');
-    Route::put('update/{product}', 'update')->name('products.update');
-    Route::delete('destroy/{product}', 'destroy')->name('products.destroy');
+    Route::get('novo', 'create')->name('products.create');
+    Route::post('salvar', 'store')->name('products.store');
+    Route::get('{product}/ver', 'show')->name('products.show');
+    Route::get('{product}/editar', 'edit')->name('products.edit');
+    Route::put('atualizar/{product}', 'update')->name('products.update');
+    Route::delete('excluir/{product}', 'destroy')->name('products.destroy');
 });
 
-Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/products/photos')->controller(ProductPhotoController::class)->group(function () {
-    Route::delete('remove/{photoId}', 'removePhoto')->name('products.photos.destroy');
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('hub/produtos/arquivos')->controller(ProductPhotoController::class)->group(function () {
+    Route::delete('excluir/{photoId}', 'removePhoto')->name('products.photos.destroy');
 });
 
-Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/categories')->controller(CategoryController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('hub/categorias')->controller(CategoryController::class)->group(function () {
     Route::get('', 'index')->name('categories');
-    Route::get('create', 'create')->name('categories.create');
-    Route::post('store', 'store')->name('categories.store');
-    Route::get('{category}/edit', 'edit')->name('categories.edit');
-    Route::put('update/{category}', 'update')->name('categories.update');
-    Route::delete('destroy/{category}', 'destroy')->name('categories.destroy');
+    Route::get('novo', 'create')->name('categories.create');
+    Route::post('salvar', 'store')->name('categories.store');
+    Route::get('{category}/editar', 'edit')->name('categories.edit');
+    Route::put('atualizar/{category}', 'update')->name('categories.update');
+    Route::delete('excluir/{category}', 'destroy')->name('categories.destroy');
 });
 
-Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/pedidos')->controller(OrdersController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('hub/pedidos')->controller(OrdersController::class)->group(function () {
     Route::get('', 'index')->name('meus_pedidos');
 });
 
-Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/cotacoes')->controller(QuotationController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('hub/cotacoes')->controller(QuotationController::class)->group(function () {
     Route::get('', 'index')->name('cotacoes');
+    Route::get('produtos/{reference}', 'produtos')->name('cotacoes.produtos');
 });
 
-Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/notificacoes')->controller(NotificationController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('hub/notificacoes')->controller(NotificationController::class)->group(function () {
     Route::get('', 'notifications')->name('notifications');
     Route::get('marcar/{notification}', 'readOne')->name('notifications.read');
     Route::get('marcar_todas', 'readall')->name('notifications.readall');
 });
 
-Route::middleware(['auth', 'access.control.store.admin'])->prefix('admin/theme')->controller(ThemeController::class)->group(function () {
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('hub/tema')->controller(ThemeController::class)->group(function () {
     Route::get('', [ThemeController::class, 'getThemeByUser']);
-    Route::post('dashboard/update_theme', [ThemeController::class, 'updateThemeByUser']);
+    Route::post('atualizar_tema', [ThemeController::class, 'updateThemeByUser']);
 });

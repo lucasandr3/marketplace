@@ -13,13 +13,24 @@
 @section('breadcrumb')
     <div class="col-md-5 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
             <li class="breadcrumb-item active"><a href="javascript:void(0)">Cadastro de Produto</a></li>
         </ol>
     </div>
 @endsection
 
 @section('content')
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
+        @csrf
     <div class="row">
         <div class="col-md-9">
 
@@ -71,7 +82,7 @@
                             <div class="form-group">
                                 <label class="control-label col-form-label">Nome: <small class="text-primary">(
                                         obrigatório )</small></label>
-                                <input type="email" class="form-control" name="name"
+                                <input type="text" class="form-control" name="name"
                                        placeholder="digite o nome do produto">
                             </div>
                         </div>
@@ -82,8 +93,21 @@
                             <div class="form-group">
                                 <label class="control-label col-form-label">Descrição: <small class="text-primary">(
                                         obrigatório )</small></label>
-                                <textarea class="form-control" cols="80" id="editorTextarea" data-sample="1" rows="3" id="objetoContrato" required="true"
-                                          data-campo="Objeto" aria-invalid="false"></textarea>
+                                <textarea class="form-control editorTextarea" cols="80" data-sample="1" rows="3"
+                                          id="objetoContrato" required="true"
+                                          data-campo="Objeto" aria-invalid="false" name="description"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">Conteúdo: <small class="text-primary">(
+                                        obrigatório )</small></label>
+                                <textarea class="form-control editorTextarea" cols="80" data-sample="1" rows="3"
+                                          id="objetoContrato" required="true"
+                                          data-campo="Objeto" aria-invalid="false" name="body"></textarea>
                             </div>
                         </div>
                     </div>
@@ -98,26 +122,13 @@
                     <div class="row mb-4">
                         <div class="col-sm-12 col-md-12">
                             <label class="control-label col-form-label">Categorias:</label>
-                            <select class="select2 form-control custom-select multi-escolhas" name="categories[]" multiple="multiple" style="width: 100%; height:36px;">
+                            <select class="select2 form-control custom-select multi-escolhas" name="categories[]"
+                                    multiple="multiple" style="width: 100%; height:36px;">
                                 <option>Selecione a categoria</option>
-                                <option value="Bermudas">Bermudas</option>
-                                <option value="Regata">Regata</option>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
                             </select>
-                        </div>
-                    </div>
-                    <h5 class="card-title font-weight-bold text-dark mb-0">
-                        Categorias Selecionadas
-                    </h5>
-                    <p>Categorias que ja estão no selecionadas no produto.</p>
-
-                    <div class="row mt-4">
-                        <div class="col-md-3 mb-3">
-                            <input type="checkbox" id="site" class="material-inputs filled-in chk-col-blue" checked/>
-                            <label for="site">Camisas</label>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <input type="checkbox" id="app" class="material-inputs filled-in chk-col-blue" checked/>
-                            <label for="app">Polo</label>
                         </div>
                     </div>
                 </div>
@@ -129,7 +140,7 @@
                         Imagens
                     </h4>
                     <div>
-                        <input type="file" name="files" multiple/>
+                        <input type="file" name="photos[]" multiple/>
                     </div>
                 </div>
             </div>
@@ -151,11 +162,11 @@
 
                     <div class="row mt-4">
                         <div class="col-md-3 mb-3">
-                            <input type="checkbox" id="site" class="material-inputs filled-in chk-col-blue" />
+                            <input type="checkbox" id="site" class="material-inputs filled-in chk-col-blue"/>
                             <label for="site">Site</label>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <input type="checkbox" id="app" class="material-inputs filled-in chk-col-blue" />
+                            <input type="checkbox" id="app" class="material-inputs filled-in chk-col-blue"/>
                             <label for="app">Aplicativo</label>
                         </div>
                     </div>
@@ -178,15 +189,96 @@
                 </div>
             </div>
 
-            <div class="card" id="p-variacoes">
-                <div class="card-body">
-                    <span>variacoes</span>
-                </div>
-            </div>
+            {{--            <div class="card" id="p-variacoes">--}}
+            {{--                <div class="card-body">--}}
+            {{--                    <span>variacoes</span>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
 
             <div class="card" id="p-preco">
                 <div class="card-body">
-                    <span>preços</span>
+                    <h4 class="card-title font-weight-bold text-dark mb-3">
+                        Preço
+                    </h4>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">Preço Base: <small class="text-primary">(
+                                        obrigatório )</small></label>
+                                <input type="text" class="form-control" name="price"
+                                       placeholder="O preço base do produto, excluindo impostos">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">Preço Venda: <small class="text-primary">(
+                                        obrigatório )</small></label>
+                                <input type="email" class="form-control" name="base_price"
+                                       placeholder="O preço base do produto, incluindo impostos">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="card-title font-weight-bold text-dark mb-0 mt-3">
+                        <div class="d-flex justify-content-between">
+                            <div>Preços para grupo de clientes</div>
+                            <div class="">
+                                <input type="checkbox" class="material-inputs" id="preco-grupo-clientes"
+                                       onclick="mostrarPrecoGrupoCliente()"/>
+                                <label for="preco-grupo-clientes">Habilitar</label>
+                            </div>
+                        </div>
+                    </h5>
+                    <p>Determina se você deseja preços diferentes entre grupos de clientes.</p>
+
+                    <div class="row sr-only" id="preco-grupo-clientes-div">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="mt-2">
+                                <label class="control-label col-form-label">Varejo:</label>
+                                <input type="text" class="form-control" name="base_price"
+                                       placeholder="0,00">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="mt-2">
+                                <label class="control-label col-form-label">Atacado:</label>
+                                <input type="text" class="form-control" name="base_price"
+                                       placeholder="0,00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="card-title font-weight-bold text-dark mb-0 mt-5">
+                        <div class="d-flex justify-content-between">
+                            <div>Preços para quantidade comprada</div>
+                            <div class="">
+                                <input type="checkbox" class="material-inputs" id="preco-qtd-desconto"
+                                       onclick="mostrarPrecoQtdComprada()"/>
+                                <label for="preco-qtd-desconto">Habilitar</label>
+                            </div>
+                        </div>
+                    </h5>
+                    <p>Determina desconto quando cliente comprar uma quantidade escolhida por você.</p>
+
+                    <div class="row sr-only" id="preco-qtd-desconto-div">
+                        <div class="col-sm-12 col-md-6">
+                            <label class="control-label col-form-label">Grupo: <small class="text-primary">(
+                                    obrigatório )</small></label>
+                            <select class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                                <option>Selecione o grupo</option>
+                                <option value="">Todos</option>
+                                <option value="">Varejo</option>
+                                <option value="">Atacado</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <label class="control-label col-form-label">Desconto: <small class="text-primary">(
+                                    obrigatório )</small></label>
+                            <input type="text" class="form-control" name="base_price"
+                                   placeholder="0.00">
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -208,13 +300,15 @@
 
                     <div class="row mb-2">
                         <div class="col-sm-12 col-md-6">
-                            <label class="control-label col-form-label">Nº global de itens comerciais (GTIN): <small class="text-primary">(
+                            <label class="control-label col-form-label">Nº global de itens comerciais (GTIN): <small
+                                    class="text-primary">(
                                     obrigatório )</small></label>
                             <input type="email" class="form-control" name="tags"
                                    placeholder="informe o gtin">
                         </div>
                         <div class="col-sm-12 col-md-6">
-                            <label class="control-label col-form-label">Nº da peça do fabricante (MPN): <small class="text-primary">(
+                            <label class="control-label col-form-label">Nº da peça do fabricante (MPN): <small
+                                    class="text-primary">(
                                     obrigatório )</small></label>
                             <input type="email" class="form-control" name="tags"
                                    placeholder="informe o mpn">
@@ -224,7 +318,8 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12">
                             <div class="form-group">
-                                <label class="control-label col-form-label">Código de barras UPC/EAN: <small class="text-primary">(
+                                <label class="control-label col-form-label">Código de barras UPC/EAN: <small
+                                        class="text-primary">(
                                         obrigatório )</small></label>
                                 <input type="email" class="form-control" name="tags"
                                        placeholder="informe o código de barras">
@@ -335,7 +430,11 @@
                     <h4 class="card-title font-weight-bold text-dark mb-0">
                         <div class="d-flex justify-content-between">
                             <div>Associações - Up Sell</div>
-                            <div><button class="btn btn-dark" onclick="toggleMenuOffcanvas()"><i class="fa fa-check"></i> Adicionar</button></div>
+                            <div>
+                                <button class="btn btn-dark" onclick="toggleMenuOffcanvas('produtos-off')"><i
+                                        class="fa fa-check"></i> Adicionar
+                                </button>
+                            </div>
                         </div>
                     </h4>
                     <p>Quando o cliente estiver no carrinho, recomende outro produto para compra.</p>
@@ -348,19 +447,20 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr class="search-items">
-                                    <td>
+                            <tr class="search-items">
+                                <td>
 
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="action-btn">
-                                            <a href="#" class="btn waves-effect waves-light btn-danger" data-toggle="tooltip" title="Desvincular">
-                                                <i class="mdi mdi-link-variant-off"></i>
-                                                desvincular
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                </td>
+                                <td class="text-right">
+                                    <div class="action-btn">
+                                        <a href="#" class="btn waves-effect waves-light btn-danger"
+                                           data-toggle="tooltip" title="Desvincular">
+                                            <i class="mdi mdi-link-variant-off"></i>
+                                            desvincular
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -369,7 +469,16 @@
 
             <div class="card" id="p-colecoes">
                 <div class="card-body">
-                    <span>coleçoes</span>
+                    <h4 class="card-title font-weight-bold text-dark mb-0">
+                        <div class="d-flex justify-content-between">
+                            <div>Coleções</div>
+                            <div>
+                                <button class="btn btn-dark" onclick="toggleMenuOffcanvas('colecao-off')"><i
+                                        class="fa fa-check"></i> Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </h4>
                 </div>
             </div>
 
@@ -404,11 +513,11 @@
                             <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
                             <span class="d-none d-lg-block">Disponibilidade</span>
                         </a>
-                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-variacoes" role="tab"
-                           aria-controls="v-pills-settings" aria-selected="false">
-                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
-                            <span class="d-none d-lg-block">Variações</span>
-                        </a>
+                        {{--                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-variacoes" role="tab"--}}
+                        {{--                           aria-controls="v-pills-settings" aria-selected="false">--}}
+                        {{--                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>--}}
+                        {{--                            <span class="d-none d-lg-block">Variações</span>--}}
+                        {{--                        </a>--}}
                         <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-preco"
                            role="tab" aria-controls="v-pills-settings" aria-selected="false">
                             <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
@@ -482,25 +591,26 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-info">Salvar Produto</button>
+                <button type="submit" class="btn btn-info">Salvar Produto</button>
 
             </div>
         </div>
     </div>
-
-    <div class="offcanvas-menu">
+    </form>
+    <div class="offcanvas-menu produtos-off">
         <div class="offcanvas-header">
-            <h5 class="card-title mb-0" id="offcanvasExampleLabel">
+            <h5 class="card-title mb-0">
                 Pesquisar Produtos
             </h5>
-            <button type="button" class="btn btn-dark" onclick="toggleMenuOffcanvas()">
+            <button type="button" class="btn btn-dark" onclick="toggleMenuOffcanvas('produtos-off')">
                 <i class="mdi mdi-close"></i>
             </button>
         </div>
         <div class="card-body p-2">
             <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
                 <li class="nav-item">
-                    <a href="#produtos-filtro" data-toggle="tab" aria-expanded="false" class="nav-link rounded-0 active">
+                    <a href="#produtos-filtro" data-toggle="tab" aria-expanded="false"
+                       class="nav-link rounded-0 active">
                         <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
                         <span class="d-none d-lg-block">Buscar Produtos</span>
                     </a>
@@ -524,12 +634,63 @@
                 <div class="tab-pane show" id="produtos-associados">
                     <div class="row mt-4">
                         <div class="col-md-6 mb-3">
-                            <input type="checkbox" id="p1" class="material-inputs filled-in chk-col-blue" />
+                            <input type="checkbox" id="p1" class="material-inputs filled-in chk-col-blue"/>
                             <label for="p1">Produto 1</label>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <input type="checkbox" id="p2" class="material-inputs filled-in chk-col-blue" />
+                            <input type="checkbox" id="p2" class="material-inputs filled-in chk-col-blue"/>
                             <label for="p2">Produto 2</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="offcanvas-menu colecao-off">
+        <div class="offcanvas-header">
+            <h5 class="card-title mb-0">
+                Pesquisar Coleções
+            </h5>
+            <button type="button" class="btn btn-dark" onclick="toggleMenuOffcanvas('colecao-off')">
+                <i class="mdi mdi-close"></i>
+            </button>
+        </div>
+        <div class="card-body p-2">
+            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                <li class="nav-item">
+                    <a href="#colecoes-filtro" data-toggle="tab" aria-expanded="false"
+                       class="nav-link rounded-0 active">
+                        <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
+                        <span class="d-none d-lg-block">Buscar Coleções</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#colecoes-associados" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                        <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+                        <span class="d-none d-lg-block">Coleções associados</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="colecoes-filtro">
+                    <div class="">
+                        <label class="control-label col-form-label">Pesquisar Coleção: </label>
+                        <input type="text" class="form-control" name="sem_estoque"
+                               placeholder="pesquisar...">
+                    </div>
+                </div>
+                <div class="tab-pane show" id="colecoes-associados">
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <input type="checkbox" id="c1" class="material-inputs filled-in chk-col-blue"/>
+                            <label for="c1">Coleção 1</label>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input type="checkbox" id="c2" class="material-inputs filled-in chk-col-blue"/>
+                            <label for="c2">Coleção 2</label>
                         </div>
                     </div>
                 </div>
@@ -546,7 +707,7 @@
         <script src="{{url('painel/libs/ckeditor/ckeditor.js')}}"></script>
         <script src="{{url('painel/libs/ckeditor/samples/js/sample.js')}}"></script>
         <script data-sample="1">
-            CKEDITOR.replace('editorTextarea', {
+            CKEDITOR.replace('.editorTextarea', {
                 height: 150
             });
         </script>

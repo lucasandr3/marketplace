@@ -11,7 +11,7 @@
             <!-- ============================================================== -->
             <!-- Logo -->
             <!-- ============================================================== -->
-            <a class="navbar-brand" href="{{route('dashboard')}}">
+            <a class="navbar-brand" href="{{route('hub')}}">
                 <!-- Logo icon -->
                 <b class="logo-icon">
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -153,11 +153,11 @@
                             </li>
                             <li role="separator" class="dropdown-divider"></li>
                             <li class="user-list">
-                                <a href="#" class="px-3 py-2" href="#"><i class="mdi mdi-account-settings-variant"></i> Meus Dados</a></li>
+                                <a href="{{route('perfil')}}" class="px-3 py-2"><i class="mdi mdi-account-settings-variant"></i> Meus Dados</a></li>
                             {{--                            <li class="user-list"><a class="px-3 py-2" href="#"><i class="ti-wallet"></i> My Balance</a></li>--}}
                             {{--                            <li class="user-list"><a class="px-3 py-2" href="#"><i class="ti-email"></i> Inbox</a></li>--}}
                             <li role="separator" class="dropdown-divider"></li>
-                            <li class="user-list"><a class="px-3 py-2" href="#"><i class="ti-settings"></i> Configurações do sistema</a></li>
+                            <li class="user-list"><a class="px-3 py-2" href="{{route('configuracoes')}}"><i class="ti-settings"></i> Configurações do sistema</a></li>
                             <li role="separator" class="dropdown-divider"></li>
                             <li class="user-list">
                                 <a class="px-3 py-2" href="{{route('logout')}}" onclick="event.preventDefault();

@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'pt_BR',
 
     /*
     |--------------------------------------------------------------------------
@@ -169,7 +169,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
-        App\Providers\PaymentServiceProvider::class
+        App\Providers\PaymentServiceProvider::class,
+        App\Providers\ServiceContainerServiceProvider::class,
+        App\Providers\RepositoryContainerServiceProvider::class
     ])->toArray(),
 
     /*

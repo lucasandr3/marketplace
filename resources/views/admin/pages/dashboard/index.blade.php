@@ -4,10 +4,10 @@
 
 @once
     @push('styles')
-        <link href="{{url('assets/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
-        <link href="{{url('assets/js/pages/chartist/chartist-init.css')}}" rel="stylesheet">
-        <link href="{{url('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css')}}" rel="stylesheet">
-        <link href="{{url('assets/libs/c3/c3.min.css')}}" rel="stylesheet">
+        <link href="{{url('painel/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
+        <link href="{{url('painel/js/pages/chartist/chartist-init.css')}}" rel="stylesheet">
+        <link href="{{url('painel/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css')}}" rel="stylesheet">
+        <link href="{{url('painel/libs/c3/c3.min.css')}}" rel="stylesheet">
     @endpush
 @endonce
 
@@ -32,7 +32,7 @@
                             <i class="mdi mdi-cart"></i>
                         </div>
                         <div class="ml-2 align-self-center flex-1">
-                            <h3 class="mb-0 font-weight-light">{{$totalProcessYear}}</h3>
+                            <h3 class="mb-0 font-weight-light">{{$totalSalesYear}}</h3>
                             <span class="text-muted mb-0">Vendas Realizadas - {{date('Y')}}</span>
                         </div>
                     </div>
@@ -62,10 +62,10 @@
                 <div class="card-body">
                     <div class="d-flex flex-row">
                         <div class="round round-lg text-white d-inline-block text-center rounded-circle bg-primary">
-                            <i class="mdi mdi-account-multiple"></i></div>
+                            <i class="mdi mdi-receipt"></i></div>
                         <div class="ml-2 align-self-center flex-1">
-                            <h3 class="mb-0 font-weight-light">{{$total_companies}}</h3>
-                            <span class="text-muted mb-0">Total Clientes</span>
+                            <h3 class="mb-0 font-weight-light">{{$total_orders}}</h3>
+                            <span class="text-muted mb-0">Total Pedidos</span>
                         </div>
                     </div>
                 </div>
@@ -78,10 +78,10 @@
                 <div class="card-body">
                     <div class="d-flex flex-row">
                         <div class="round round-lg text-white d-inline-block text-center rounded-circle bg-danger">
-                            <i class="mdi mdi-account-card-details"></i></div>
+                            <i class="mdi mdi-file-check"></i></div>
                         <div class="ml-2 align-self-center flex-1">
-                            <h3 class="mb-0 font-weight-light">{{$totalSupliers}}</h3>
-                            <span class="text-muted mb-0">Total Vendedores</span>
+                            <h3 class="mb-0 font-weight-light">{{$totalQuotations}}</h3>
+                            <span class="text-muted mb-0">Total Cotações</span>
                         </div>
                     </div>
                 </div>
@@ -183,12 +183,12 @@
 
 @once
     @push('scripts')
-        <script src="{{url('assets/libs/chartist/dist/chartist.min.js')}}"></script>
-        <script src="{{url('assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
+        <script src="{{url('painel/libs/chartist/dist/chartist.min.js')}}"></script>
+        <script src="{{url('painel/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
         <!--c3 JavaScript -->
-        <script src="{{url('assets/libs/d3/dist/d3.min.js')}}"></script>
-        <script src="{{url('assets/libs/c3/c3.min.js')}}"></script>
+        <script src="{{url('painel/libs/d3/dist/d3.min.js')}}"></script>
+        <script src="{{url('painel/libs/c3/c3.min.js')}}"></script>
         <!-- Chart JS -->
-        <script src="{{url('assets/js/pages/dashboards/dashboard1.js')}}"></script>
+        <script src="{{url('painel/js/pages/dashboards/dashboard1.js')}}"></script>
     @endpush
 @endonce

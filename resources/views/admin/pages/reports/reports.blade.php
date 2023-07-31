@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <div class="col-md-5 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
             <li class="breadcrumb-item active"><a href="{{route('relatorios')}}">Relatórios</a></li>
             <li class="breadcrumb-item active">Processo</li>
         </ol>

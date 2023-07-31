@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', "{$user->name}")
+@section('title', "Meus Dados")
 
 @section('breadcrumb')
     <div class="col-md-5 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{route('planos.index')}}">Meus Dados</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="#">Atualização</a></li>
             <li class="breadcrumb-item active">Editar - {{$user->name}}</li>
         </ol>
     </div>
@@ -16,7 +16,7 @@
     @include('admin.includes.notification')
     <div class="row">
         <div class="col-12">
-            <form method="post" action="{{route('meus_dados.update', $user->id)}}">
+            <form method="post" action="{{route('perfil.update', $user->id)}}">
                 @csrf
                 @method('PUT')
                 <div class="card">
@@ -30,7 +30,7 @@
                             </button>
                             <strong><i class="fa fa-bell"></i> Aviso - </strong> Para trocar a senha basta enviar, caso contrário deixe em branco o campo de senha.
                         </div>
-                        <label><small class="text-primary">( obrigatório )</small></label>
+                        <label>Nome: <small class="text-primary">( obrigatório )</small></label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-file-alt"></i></span>
@@ -39,7 +39,7 @@
                                    aria-label="name" aria-describedby="basic-addon1" name="name"
                                    value="{{ $user->name }}" required autocomplete="name" autofocus>
                         </div>
-                        <label><small class="text-primary">( obrigatório )</small></label>
+                        <label>E-mail: <small class="text-primary">( obrigatório )</small></label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-file-alt"></i></span>
@@ -50,7 +50,7 @@
                                    value="{{ $user->email }}" required autocomplete="email"
                                    autofocus>
                         </div>
-                        <label><small class="text-primary">( somente para troca de senha, envie )</small></label>
+                        <label>Senha: <small class="text-primary">( somente para troca de senha, envie )</small></label>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-lock"></i></span>
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="{{route('meus_dados.index')}}" class="btn btn-outline-secondary">
+                        <a href="{{route('perfil')}}" class="btn btn-outline-secondary">
                            <i class="fa fa-arrow-left"></i> Voltar
                         </a>
                         <button type="submit" class="btn btn-info">

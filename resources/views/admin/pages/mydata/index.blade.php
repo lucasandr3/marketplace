@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
-@section('title', "{$user->name}")
+@section('title', "Meus Dados")
 
 @section('breadcrumb')
     <div class="col-md-5 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{route('usuarios.index')}}">Meus Dados</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
             <li class="breadcrumb-item active">{{$user->name}}</li>
         </ol>
     </div>
@@ -48,7 +47,7 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-4 font-weight-bold">Empresa:</label>
                                     <div class="col-md-8">
-                                        <p class="form-control-static">{{$user->tenant->name}}</p>
+                                        <p class="form-control-static">{{$user->name}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -59,9 +58,7 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-4 font-weight-bold">Cargo(s):</label>
                                     <div class="col-md-8">
-                                        @foreach($user->myRoles() as $role)
-                                            <p class="form-control-static">{{$role->name}}</p>
-                                        @endforeach
+                                        Administrador
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +87,7 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex">
-                        <a href="{{route('meus_dados.edit', $user->id)}}" type="submit" class="btn btn-info">
+                        <a href="{{route('perfil.edit', $user->id)}}" type="submit" class="btn btn-info">
                             <i class="fa fa-pencil-alt"></i> Editar Dados
                         </a>
                     </div>

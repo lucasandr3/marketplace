@@ -1,6 +1,6 @@
 $(function () {
     "use strict";
-    fetch('/dashboard/graphic_bars')
+    fetch('/hub/graphic_bars')
         .then(res => res.json())
         .then(res => {
             var chart2 = new Chartist.Bar('.amp-pxl', {
@@ -28,7 +28,7 @@ $(function () {
         });
 
 
-    fetch('/dashboard/graphic_lines')
+    fetch('/hub/graphic_lines')
         .then(res => res.json())
         .then(res => {
             var chart = new Chartist.Line('.campaign', {
@@ -57,7 +57,7 @@ $(function () {
         });
 
 
-    fetch('/dashboard/graphic_items')
+    fetch('/hub/graphic_items')
         .then(res => res.json())
         .then(res => {
             let columnsValues = [];
@@ -95,7 +95,7 @@ $(function () {
             });
         });
 
-    fetch('/dashboard/graphic_platforms')
+    fetch('/hub/graphic_platforms')
         .then(res => res.json())
         .then(res => {
             let columnsValues = [];

@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'Edição Processo | Onlicitação')
+@section('title', 'Cadastro Processo | Onlicitação')
 
 @once
     @push('styles')
-        <link rel="stylesheet" type="text/css" href="{{url('assets/libs/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css')}}">
+        <link rel="stylesheet" type="text/css"
+              href="{{url('assets/libs/ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css')}}">
         <link rel="stylesheet" type="text/css" href="{{url('assets/libs/ckeditor/samples/css/samples.css')}}">
     @endpush
 @endonce
@@ -12,430 +13,719 @@
 @section('breadcrumb')
     <div class="col-md-5 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
-            <li class="breadcrumb-item active"><a href="javascript:void(0)">Edição Processo</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Cadastro de Produto</a></li>
         </ol>
     </div>
 @endsection
 
 @section('content')
-<div class="row">
+    <div class="row">
+        <div class="col-md-9">
 
-    <div class="col-12">
-        <div class="card">
-            <form action="{{route('processos.update', $process->id)}}" method="post" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-            <div class="card-body pt-0">
-
-                <div class="card-header d-flex justify-content-between align-items-center mb-4"
-                     style="background-color: rgba(0,0,0,.03);margin-left: -20px;margin-right: -20px;">
-                    <h4 class="card-title mb-0 -weight-bold text-dark">
-                        <i class="mdi mdi-file-document-box mr-2 text-dark"></i>
-                        <span id="contrato-header">Edição de Processo</span><br>
-                        <small class="ml-1">Informe os dados do processo</small>
+            <div class="card" id="p-info">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-2">
+                        Informações Básicas
                     </h4>
-                </div>
-
-                <ul class="nav nav-tabs mb-3">
-                    <li class="nav-item">
-                        <a href="#home" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                            <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
-                            <span class="d-none d-lg-block">Dados do Processo</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#profile" data-toggle="tab" aria-expanded="true"
-                           class="nav-link">
-                            <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
-                            <span class="d-none d-lg-block">Items</span>
-                        </a>
-                    </li>
-                </ul>
-
-                <div class="tab-content">
-                    <div class="tab-pane show active" id="home">
-                        <div class="card-body">
-                            <h4 class="card-title h4-processo" style="margin-top: -20px;">
-                                <i class="mdi mdi-calendar-clock"></i> Informações do Processo
-                            </h4>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-4">
-                                    <div class="mb-3">
-                                        <label for="processo" class="control-label col-form-label">Número do Processo <small
-                                                class="text-primary">( obrigatório )</small></label>
-                                        <input type="text" class="form-control" name="number" required="true"
-                                               value="{{$process->number ?? old('number')}}" placeholder="Número do processo" value=""
-                                        >
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-4">
-                                    <div class="mb-3">
-                                        <label for="anoContrato" class="control-label col-form-label">Ano do Processo <small
-                                                class="text-primary">( obrigatório )</small></label>
-                                        <input type="text" class="form-control" name="year" required="true"
-                                               value="{{$process->year ?? old('year')}}" placeholder="0000" value="2022" >
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-4">
-                                    <div class="mb-3">
-                                        <label for="processo" class="control-label col-form-label">Número do Processo (Interno) <small
-                                                class="text-primary">( obrigatório )</small></label>
-                                        <input type="text" class="form-control" name="my_number" required="true"
-                                               value="{{$process->my_number ?? old('my_number')}}" placeholder="Número do processo" value=""
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-4">
-                                    <div class="mb-3">
-                                        <label for="anoContrato" class="control-label col-form-label">Data<small
-                                                class="text-primary">( obrigatório )</small></label>
-                                        <input type="date" class="form-control" name="init_session" required="true"
-                                               value="{{$process->init_session ?? old('init_session')}}" placeholder="0000" value="2022" >
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-4">
-                                    <div class="mb-3">
-                                        <label for="anoContrato" class="control-label col-form-label">Hora<small
-                                                class="text-primary">( obrigatório )</small></label>
-                                        <input type="time" class="form-control" name="hour_session" required="true"
-                                               data-campo="Ano do Contrato" placeholder="0000" value="{{$process->hour_session ?? old('hour_session')}}" >
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-4">
-                                    <div class="mb-3">
-                                        <label for="anoContrato" class="control-label col-form-label">Quantidade de Itens/Lotes <small
-                                                class="text-primary">( obrigatório )</small></label>
-                                        <input type="number" class="form-control" name="quantity_itens" required="true"
-                                               placeholder="digite a quantidade de itens/lotes" value="{{$process->quantity_itens ?? old('quantity_itens')}}" >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-4">
-                                    <label for="categoriaProcessoId" class="control-label col-form-label">
-                                        Modalidade: <small class="text-primary">( obrigatório )</small>
-                                    </label>
-                                    <div class="mb-3">
-                                        <select class="form-control select2" name="modality_id" required="true"
-                                                data-campo="Categoria do Processo" style="width: 100%;">
-                                            <optgroup label="Modalidade Atual">
-                                                <option value="{{$process->modality_id}}" selected>{{$process->modality->type}}</option>
-                                            </optgroup>
-                                            <optgroup label="Seleciona uma Modalidade">
-                                                @foreach($modalities as $modality)
-                                                    <option value="{{$modality->id}}">{{$modality->type}}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-4">
-                                    <label for="categoriaProcessoId" class="control-label col-form-label">
-                                        Plataforma: <small class="text-primary">( obrigatório )</small>
-                                    </label>
-                                    <div class="mb-3">
-                                        <select class="form-control select2" name="platform_id" required="true"
-                                                data-campo="Categoria do Processo" style="width: 100%;">
-                                            <optgroup label="Plataforma Atual">
-                                                <option value="{{$process->platform_id}}" selected>{{$process->platform->platform}}</option>
-                                            </optgroup>
-                                            <optgroup label="Selecione uma plataforma">
-                                                @foreach($platforms as $platform)
-                                                    <option value="{{$platform->id}}">{{$platform->platform}}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-4">
-                                    <label for="categoriaProcessoId" class="control-label col-form-label">
-                                        Julgamento: <small class="text-primary">( obrigatório )</small>
-                                    </label>
-                                    <div class="mb-3">
-                                        <select class="form-control select2" name="judgment_id" required="true"
-                                                data-campo="Categoria do Processo" style="width: 100%;">
-                                            <optgroup label="Julgamento Atual">
-                                                <option value="{{$process->judgment_id}}">{{$process->judgment->judgment}}</option>
-                                            </optgroup>
-                                            <optgroup label="Selecione o julgamento">
-                                                @foreach($judgments as $judgment)
-                                                    <option value="{{$judgment->id}}">{{$judgment->judgment}}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="row mb-2">
+                        <div class="col-sm-12 col-md-6">
+                            <label class="control-label col-form-label">Estoque: <small class="text-primary">(
+                                    obrigatório )</small></label>
+                            <select class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                                <option>Selecione uma opção</option>
+                                <option value="0">Sem estoque</option>
+                                <option value="1">Estoque</option>
+                            </select>
                         </div>
-                        <div class="card-body">
-                            <h4 class="card-title h4-processo">
-                                <i class="fa fa-university"></i> Informações do Orgão
-                            </h4>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="cnpjContrante" class="control-label col-form-label">Orgão contratante
-                                        <small class="text-primary">( obrigatório )</small>
-                                    </label>
-                                    <div class="mb-3">
-                                        <select class="select2 form-control custom-select"
-                                                name="organ_id"  style="width: 100%;height: 40px;line-height: 40px;">
-                                            <optgroup label="Orgão Atual">
-                                                <option value="{{$process->organ_id}}" selected>{{$process->organ->name}}</option>
-                                            </optgroup>
-                                            <optgroup label="Selecione um Orgão">
-                                                @foreach($buyers as $buyer)
-                                                    <option value="{{$buyer->id}}">{{$buyer->name}}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="mb-3">
-                                        <label for="cnpjCompra" class="control-label col-form-label">UASG
-                                            <small class="text-primary">( obrigatório )</small></label>
-                                        <input type="text" class="form-control" name="uasg" required="true"
-                                               value="{{$process->uasg ?? old('uasg')}}" placeholder="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="mb-3">
-                                        <label for="anoCompra" class="control-label col-form-label">Cidade <small
-                                                class="text-primary">( obrigatório )</small></label>
-                                        <input type="text" class="form-control" id="anoCompra" name="city" required="true"
-                                               value="{{$process->city ?? old('city')}}" placeholder="Digite o nome da cidade">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="sequencialCompra" class="control-label col-form-label">Estado
-                                        <small class="text-primary">( obrigatório )</small></label>
-                                    <div class="mb-3">
-                                        <select class="form-control select2" name="state" style="width: 100%;">
-                                            <optgroup label="Estado Atual">
-                                                <option value="{{$process->state}}" selected>{{$process->state}}</option>
-                                            </optgroup>
-                                            <optgroup label="Selecione um estado">
-                                                <option value="AC">AC</option>
-                                                <option value="AL">AL</option>
-                                                <option value="AP">AP</option>
-                                                <option value="AM">AM</option>
-                                                <option value="BA">BA</option>
-                                                <option value="CE">CE</option>
-                                                <option value="DF">DF</option>
-                                                <option value="ES">ES</option>
-                                                <option value="GO">GO</option>
-                                                <option value="MA">MA</option>
-                                                <option value="MT">MT</option>
-                                                <option value="MS">MS</option>
-                                                <option value="MG">MG</option>
-                                                <option value="PA">PA</option>
-                                                <option value="PB">PB</option>
-                                                <option value="PR">PR</option>
-                                                <option value="PE">PE</option>
-                                                <option value="PI">PI</option>
-                                                <option value="RJ">RJ</option>
-                                                <option value="RN">RN</option>
-                                                <option value="RS">RS</option>
-                                                <option value="RO">RO</option>
-                                                <option value="RR">RR</option>
-                                                <option value="SC">SC</option>
-                                                <option value="SP">SP</option>
-                                                <option value="SE">SE</option>
-                                                <option value="TO">TO</option>
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-sm-12 col-md-6">
+                            <label class="control-label col-form-label">Marca: <small class="text-primary">(
+                                    obrigatório )</small></label>
+                            <select class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                                <option>Selecione a marca</option>
+                                <option value=""></option>
+                            </select>
                         </div>
-                        <div class="card-body">
-                            <h4 class="card-title h4-processo">
-                                <i class="fa fa-id-card"></i> Informações do Operador
-                            </h4>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="mb-3">
-                                        <label for="niFornecedor" class="control-label col-form-label">Operador
-                                            <small class="text-primary">( obrigatório )</small></label>
-                                        <select class="select2 form-control custom-select" name="user_id" required="true"
-                                                data-campo="Categoria do Processo" style="width: 100%;height: 40px;line-height: 40px;">
-                                            <optgroup label="Operador Atual">
-                                                <option value="{{$process->user_id}}" selected>{{$process->user->name}}</option>
-                                            </optgroup>
-                                            <optgroup label="Selecione o operador">
-                                                @foreach($users as $user)
-                                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <label for="tipoPessoaFornecedor" class="control-label col-form-label">Unidade <small
-                                            class="text-primary">( obrigatório )</small></label>
-                                    <div class="mb-3">
-                                        <select class="form-control select2" id="tipoPessoaFornecedor" name="unit_id" style="width: 100%">
-                                            <optgroup label="Unidade Atual">
-                                                <option value="{{$process->unit_id}}" selected>{{$process->unit->name}}</option>
-                                            </optgroup>
-                                            <optgroup label="Seleciona a unidade">
-                                                @foreach($units as $unit)
-                                                    <option value="{{$unit->id}}">{{$unit->name}}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title h4-processo">
-                                <i class="mdi mdi-file-document-box"></i> Informações do Objeto
-                            </h4>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12">
-                                    <div class="mb-3">
-                                        <label for="objetoContrato" class="control-label col-form-label">Objeto
-                                            <small class="text-primary">( opcional )</small></label>
-                                        <textarea class="form-control" cols="80" id="editorTextarea" data-sample="1" rows="3" name="object"
-                                                  data-campo="Objeto" aria-invalid="false">
-                                            {{$process->object}}
-                                        </textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title h4-processo">
-                                <i class="mdi mdi-folder"></i> Documentos
-                            </h4>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <label class="control-label col-form-label">
-                                        Tipo de Documento <small class="text-primary">( opcional )</small>
-                                    </label>
-                                    <div class="mb-3">
-                                        <select class="form-control select2" name="type_document_id" required="true"
-                                                style="width: 100%;">
-                                            <option value="{{$edital->type_id}}">{{$edital->type}}</option>
-                                            @foreach($typeDocuments as $typeDocument)
-                                                <option value="{{$typeDocument->id}}">{{$typeDocument->type}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6" id="documento-input">
-                                    <div class="mb-3">
-                                        <label for="fileupload" class="control-label col-form-label label-file-contrato">
-                                            clique aqui para enviar o documento</label>
-                                        <input type="file" name="file[]" multiple class="form-control">
-                                    </div>
-                                </div>
+                    </div>
 
-                                <div class="col-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered muted-bordered-table m-t-20">
-                                            <tbody>
-                                            @foreach($process->documents as $document)
-                                                <tr>
-                                                    <td>
-                                                        <a href="{{$process->link}}" download><i class="fa fa-download"></i> {{$document->name}}</a>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a href=""><i class="mdi mdi-delete text-danger font-18" title="Remover arquivo"></i></a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">Tags: <small class="text-primary">(
+                                        obrigatório )</small></label>
+                                <input type="email" class="form-control" name="tags"
+                                       placeholder="separe as tags com vírgula">
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="profile">
-                        <div class="card-body">
-                            <div class="repeater-default m-t-30">
-                                <div data-repeater-list="items">
-                                    @foreach($process->items as $item)
-                                    <div data-repeater-item="{{$item->id}}">
-                                        <div class="form-row">
-                                                <div class="form-group col-md-1">
-                                                    <label>Item:</label>
-                                                    <input type="number" name="items[item_number]" value="{{$item->item_number}}" class="form-control" placeholder="Item">
-                                                </div>
-                                                <div class="form-group col-md-1">
-                                                    <label>Lote:</label>
-                                                    <input type="number" name="items[batch_number]" class="form-control" value="{{$item->batch_number}}" placeholder="Lote">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <label>Produto/Serviço:</label>
-                                                    <input type="text" name="items[item]" value="{{$item->item}}" class="form-control" placeholder="Produto/Serviço">
-                                                </div>
-                                            <div class="form-group col-md-1">
-                                                <label>Und:</label>
-                                                <input type="text" name="items[unit]" class="form-control" value="{{$item->unit}}" placeholder="Unidade">
-                                            </div>
-                                                <div class="form-group col-md-2">
-                                                    <label>Valor Unitário:</label>
-                                                    <input type="text" name="items[value]" value="{{$item->value}}" class="form-control" id="pwd" placeholder="Valor Unitário">
-                                                </div>
-                                                <div class="form-group col-md-2">
-                                                    <label>Quantidade:</label>
-                                                    <input type="text" name="items[quantity]" value="{{$item->quantity}}" class="form-control" id="pwd" placeholder="Quantidade">
-                                                </div>
-                                                <div class="form-group col-md-1">
-                                                    <button data-repeater-delete="" class="btn btn-danger waves-effect waves-light m-l-10 " type="button" style="margin-top: 20px;">
-                                                        <i class="mdi mdi-delete font-18"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        <hr>
-                                    </div>
-                                    @endforeach
-                                </div>
-                                <div class="text-right">
-                                    <p data-repeater-create="" class="btn btn-info waves-effect waves-light">
-                                        <i class="mdi mdi-plus"></i> Adicionar item
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- end card-body-->
-            <div class="card-footer d-flex gap-10">
-                <a href="{{route('processos.index')}}" class="btn btn-outline-secondary">
-                    <i class="mdi mdi-arrow-left"> Voltar</i>
-                </a>
-                <div class="text-end">
-                    <button type="submit" class="
-                          btn btn-info
-                          px-4
-                          waves-effect waves-light
-                        ">
-                        <i class="fa fa-check"></i> Salvar Alterações
-                    </button>
                 </div>
             </div>
-            </form>
+
+            <div class="card" id="p-detalhes">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-2">
+                        Detalhes
+                    </h4>
+                    <div class="row mb-2">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">Nome: <small class="text-primary">(
+                                        obrigatório )</small></label>
+                                <input type="text" class="form-control" name="name" value="{{$product->name}}"
+                                       placeholder="digite o nome do produto">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">Descrição: <small class="text-primary">(
+                                        obrigatório )</small></label>
+                                <textarea class="form-control" cols="80" id="editorTextarea" data-sample="1" rows="3"
+                                          id="objetoContrato" required="true" name="description"
+                                          data-campo="Objeto" aria-invalid="false">{{$product->description}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="p-disponibilidade">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-3">
+                        Categorias do Produto
+                    </h4>
+                    <div class="row mb-4">
+                        <div class="col-sm-12 col-md-12">
+                            <label class="control-label col-form-label">Categorias:</label>
+                            <select class="select2 form-control custom-select multi-escolhas" name="categories[]"
+                                    multiple="multiple" style="width: 100%; height:36px;">
+                                <option>Selecione a categoria</option>
+                                @foreach($categories as $category)
+                                    @if(!$product->categories()->get()->contains($category))
+                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <h5 class="card-title font-weight-bold text-dark mb-0">
+                        Categorias Selecionadas
+                    </h5>
+                    <p>Categorias que ja estão no selecionadas no produto.</p>
+
+                    <div class="row mt-4">
+                        @foreach($categories as $category)
+                            @if($product->categories()->get()->contains($category))
+                                <div class="col-md-3 mb-3">
+                                    <input type="checkbox" id="{{$category->id}}"
+                                           class="material-inputs filled-in chk-col-blue" checked/>
+                                    <label for="{{$category->id}}">{{$category->name}}</label>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="p-imagens">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-3">
+                        Imagens
+                    </h4>
+                    <div>
+                        <input type="file" name="files" multiple/>
+                    </div>
+
+                    <div class="row">
+                        <!-- column -->
+                        @foreach($product->images()->get() as $image)
+                            <div class="col-lg-3 col-md-6">
+                                <!-- Card -->
+                                <div class="card mb-0 mt-4">
+                                    <img class="card-img-top img-fluid" src="{{asset("storage/{$image->image}")}}"
+                                         alt="Card image cap">
+                                    <div class="card-body text-center">
+                                        <form action="{{route('products.photos.destroy', $image->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                                Excluir
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- Card -->
+                            </div>
+                        @endforeach
+                        <!-- column -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="p-disponibilidade">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-3">
+                        Disponibilidade
+                    </h4>
+                    <div class="alert alert-success" role="alert">
+                        <strong><i class="fa fa-info-circle"></i></strong>
+                        Ao agendar a disponibilidade, esse produto não estará disponível para o grupo
+                        de clientes do canal até que a data tenha passado e o produto esteja ativo.
+                    </div>
+                    <h5 class="card-title font-weight-bold text-dark mb-0">
+                        Canais
+                    </h5>
+                    <p>Selecione em quais canais este produto está disponível.</p>
+
+                    <div class="row mt-4">
+                        <div class="col-md-3 mb-3">
+                            <input type="checkbox" id="site" class="material-inputs filled-in chk-col-blue"/>
+                            <label for="site">Site</label>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <input type="checkbox" id="app" class="material-inputs filled-in chk-col-blue"/>
+                            <label for="app">Aplicativo</label>
+                        </div>
+                    </div>
+
+                    <h5 class="card-title font-weight-bold text-dark mb-0 mt-3">
+                        Visibilidade
+                    </h5>
+                    <p>Agende para quais grupos de clientes este produto está disponível.</p>
+
+                    <div class="row mt-4">
+                        <div class="col-md-3 mb-3">
+                            <input name="group1" class="material-inputs" type="radio" id="mostrar" checked="">
+                            <label for="mostrar">Mostrar</label>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <input name="group1" class="material-inputs" type="radio" id="escondido">
+                            <label for="escondido">Não mostrar</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{--            <div class="card" id="p-variacoes">--}}
+            {{--                <div class="card-body">--}}
+            {{--                    <span>variacoes</span>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
+
+            <div class="card" id="p-preco">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-3">
+                        Preço
+                    </h4>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">Preço Base: <small class="text-primary">(
+                                        obrigatório )</small></label>
+                                <input type="text" class="form-control" name="base_price" value="{{$product->price}}"
+                                       placeholder="O preço base do produto, excluindo impostos">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">Preço Venda: <small class="text-primary">(
+                                        obrigatório )</small></label>
+                                <input type="text" class="form-control" name="base_price" value="{{$product->price}}"
+                                       placeholder="O preço base do produto, incluindo impostos">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="card-title font-weight-bold text-dark mb-0 mt-3">
+                        <div class="d-flex justify-content-between">
+                            <div>Preços para grupo de clientes</div>
+                            <div class="">
+                                <input type="checkbox" class="material-inputs" id="preco-grupo-clientes"
+                                       onclick="mostrarPrecoGrupoCliente()"/>
+                                <label for="preco-grupo-clientes">Habilitar</label>
+                            </div>
+                        </div>
+                    </h5>
+                    <p>Determina se você deseja preços diferentes entre grupos de clientes.</p>
+
+                    <div class="row sr-only" id="preco-grupo-clientes-div">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="mt-2">
+                                <label class="control-label col-form-label">Varejo:</label>
+                                <input type="text" class="form-control" name="base_price"
+                                       placeholder="0,00">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="mt-2">
+                                <label class="control-label col-form-label">Atacado:</label>
+                                <input type="text" class="form-control" name="base_price"
+                                       placeholder="0,00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5 class="card-title font-weight-bold text-dark mb-0 mt-5">
+                        <div class="d-flex justify-content-between">
+                            <div>Preços para quantidade comprada</div>
+                            <div class="">
+                                <input type="checkbox" class="material-inputs" id="preco-qtd-desconto"
+                                       onclick="mostrarPrecoQtdComprada()"/>
+                                <label for="preco-qtd-desconto">Habilitar</label>
+                            </div>
+                        </div>
+                    </h5>
+                    <p>Determina desconto quando cliente comprar uma quantidade escolhida por você.</p>
+
+                    <div class="row sr-only" id="preco-qtd-desconto-div">
+                        <div class="col-sm-12 col-md-6">
+                            <label class="control-label col-form-label">Grupo: <small class="text-primary">(
+                                    obrigatório )</small></label>
+                            <select class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                                <option>Selecione o grupo</option>
+                                <option value="">Todos</option>
+                                <option value="">Varejo</option>
+                                <option value="">Atacado</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <label class="control-label col-form-label">Desconto: <small class="text-primary">(
+                                    obrigatório )</small></label>
+                            <input type="text" class="form-control" name="base_price"
+                                   placeholder="0.00">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card" id="p-identificadores">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-3">
+                        Identificadores do produto
+                    </h4>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">SKU: <small class="text-primary">(
+                                        obrigatório )</small></label>
+                                <input type="email" class="form-control" name="tags"
+                                       placeholder="informe o sku">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col-sm-12 col-md-6">
+                            <label class="control-label col-form-label">Nº global de itens comerciais (GTIN): <small
+                                    class="text-primary">(
+                                    obrigatório )</small></label>
+                            <input type="email" class="form-control" name="tags"
+                                   placeholder="informe o gtin">
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <label class="control-label col-form-label">Nº da peça do fabricante (MPN): <small
+                                    class="text-primary">(
+                                    obrigatório )</small></label>
+                            <input type="email" class="form-control" name="tags"
+                                   placeholder="informe o mpn">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label class="control-label col-form-label">Código de barras UPC/EAN: <small
+                                        class="text-primary">(
+                                        obrigatório )</small></label>
+                                <input type="email" class="form-control" name="tags"
+                                       placeholder="informe o código de barras">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="p-estoque">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-3">
+                        Estoque
+                    </h4>
+                    <div class="row mb-3">
+                        <div class="col-sm-12 col-md-3">
+                            <label class="control-label col-form-label">Estoque: <small class="text-primary">(
+                                    obrigatório )</small></label>
+                            <input type="number" class="form-control" name="estoque" value="0"
+                                   placeholder="0">
+                        </div>
+                        <div class="col-sm-12 col-md-5">
+                            <label class="control-label col-form-label">Compra sem estoque: <small class="text-primary">(
+                                    obrigatório )</small></label>
+                            <input type="number" class="form-control" name="sem_estoque" value="0"
+                                   placeholder="0">
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <label class="control-label col-form-label">Permitir Compra: <small class="text-primary">(
+                                    obrigatório )</small></label>
+                            <select class="select2 form-control custom-select" style="width: 100%; height:36px;">
+                                <option value="0">Sempre</option>
+                                <option value="1">Em estoque</option>
+                                <option value="2">Sem estoque</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="alert alert-success mb-0" role="alert">
+                        <strong><i class="fa fa-info-circle"></i></strong>
+                        Este item <strong>sempre</strong> pode ser comprado.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="p-frete">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-3">
+                        Frete
+                    </h4>
+                    <div class="row mb-2">
+                        <div class="col-sm-12 col-md-3">
+                            <label class="control-label col-form-label">Comprimento:</label>
+                            <input type="number" class="form-control" name="estoque" value="0"
+                                   placeholder="0">
+                            <div class="relative-frete">
+                                <select class="form-control">
+                                    <option value="mm">MM</option>
+                                    <option value="cm">CM</option>
+                                    <option value="in">EM</option>
+                                    <option value="m">M</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <label class="control-label col-form-label">Largura:</label>
+                            <input type="number" class="form-control" name="sem_estoque" value="0"
+                                   placeholder="0">
+                            <div class="relative-frete">
+                                <select class="form-control">
+                                    <option value="mm">MM</option>
+                                    <option value="cm">CM</option>
+                                    <option value="in">EM</option>
+                                    <option value="m">M</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <label class="control-label col-form-label">Altura:</label>
+                            <input type="number" class="form-control" name="sem_estoque" value="0"
+                                   placeholder="0">
+                            <div class="relative-frete">
+                                <select class="form-control">
+                                    <option value="mm">MM</option>
+                                    <option value="cm">CM</option>
+                                    <option value="in">EM</option>
+                                    <option value="m">M</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <label class="control-label col-form-label">Peso:</label>
+                            <input type="number" class="form-control" name="sem_estoque" value="0"
+                                   placeholder="0">
+                            <div class="relative-frete">
+                                <select class="form-control">
+                                    <option value="mm">G</option>
+                                    <option value="cm">KG</option>
+                                    <option value="in">L</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="p-associacoes">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-0">
+                        <div class="d-flex justify-content-between">
+                            <div>Associações - Up Sell</div>
+                            <div>
+                                <button class="btn btn-dark" onclick="toggleMenuOffcanvas('produtos-off')"><i
+                                        class="fa fa-check"></i> Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </h4>
+                    <p>Quando o cliente estiver no carrinho, recomende outro produto para compra.</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped search-table v-middle mb-0">
+                            <thead class="header-item">
+                            <tr>
+                                <th class="font-weight-bold">Produto</th>
+                                <th class="font-weight-bold text-right">Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="search-items">
+                                <td>
+
+                                </td>
+                                <td class="text-right">
+                                    <div class="action-btn">
+                                        <a href="#" class="btn waves-effect waves-light btn-danger"
+                                           data-toggle="tooltip" title="Desvincular">
+                                            <i class="mdi mdi-link-variant-off"></i>
+                                            desvincular
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="p-colecoes">
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold text-dark mb-0">
+                        <div class="d-flex justify-content-between">
+                            <div>Coleções</div>
+                            <div>
+                                <button class="btn btn-dark" onclick="toggleMenuOffcanvas('colecao-off')"><i
+                                        class="fa fa-check"></i> Adicionar
+                                </button>
+                            </div>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+
+        </div> <!-- end col-->
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab2" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link show active" id="v-pills-home-tab" data-toggle="pill" href="#p-info"
+                           role="tab" aria-controls="v-pills-home" aria-selected="true">
+                            <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Informações básicas</span>
+                        </a>
+                        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#p-detalhes" role="tab"
+                           aria-controls="v-pills-profile" aria-selected="false">
+                            <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Detalhes</span>
+                        </a>
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-categorias" role="tab"
+                           aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Categorias</span>
+                        </a>
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-imagens" role="tab"
+                           aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Imagens</span>
+                        </a>
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-disponibilidade"
+                           role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Disponibilidade</span>
+                        </a>
+                        {{--                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-variacoes" role="tab"--}}
+                        {{--                           aria-controls="v-pills-settings" aria-selected="false">--}}
+                        {{--                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>--}}
+                        {{--                            <span class="d-none d-lg-block">Variações</span>--}}
+                        {{--                        </a>--}}
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-preco"
+                           role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Preço</span>
+                        </a>
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-identificadores"
+                           role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Identificadores</span>
+                        </a>
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-estoque"
+                           role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Estoque</span>
+                        </a>
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-frete"
+                           role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Frete</span>
+                        </a>
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-associacoes"
+                           role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Associações</span>
+                        </a>
+                        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#p-colecoes"
+                           role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                            <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                            <span class="d-none d-lg-block">Coleções</span>
+                        </a>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col-->
+
+        <div class="modal-btns-actions">
+            <div class="">
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-warning"><i class="fa fa-eye-slash"></i> Rascunho</button>
+                    <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" style="">
+                        <a class="dropdown-item" href="javascript:void(0)">
+                            <div class="d-flex">
+                                <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
+                                <p class=" font-semibold mr-2">
+                                    Publicado
+                                </p>
+                                <span class="text-success"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="mt-2 text-left text-gray-500">
+                                Este produto estará disponível em todos <br> os canais habilitados e grupos de clientes.
+                            </p>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:void(0)">
+                            <div class="d-flex">
+                                <!-- Selected: "font-semibold", Not Selected: "font-normal" -->
+                                <p class=" font-semibold mr-2">
+                                    Rascunho
+                                </p>
+                                <span class="text-success"><i class="fa fa-check"></i></span>
+                            </div>
+                            <p class="mt-2">
+                                Este produto ficará oculto de todos<br> os canais e grupos de clientes.
+                            </p>
+                        </a>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-info">Salvar Produto</button>
+
+            </div>
         </div>
+    </div>
+
+    <div class="offcanvas-menu produtos-off">
+        <div class="offcanvas-header">
+            <h5 class="card-title mb-0">
+                Pesquisar Produtos
+            </h5>
+            <button type="button" class="btn btn-dark" onclick="toggleMenuOffcanvas('produtos-off')">
+                <i class="mdi mdi-close"></i>
+            </button>
         </div>
-</div>
+        <div class="card-body p-2">
+            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                <li class="nav-item">
+                    <a href="#produtos-filtro" data-toggle="tab" aria-expanded="false"
+                       class="nav-link rounded-0 active">
+                        <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
+                        <span class="d-none d-lg-block">Buscar Produtos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#produtos-associados" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                        <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+                        <span class="d-none d-lg-block">Produtos associados</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="produtos-filtro">
+                    <div class="">
+                        <label class="control-label col-form-label">Pesquisar Produto: </label>
+                        <input type="text" class="form-control" name="sem_estoque"
+                               placeholder="pesquisar...">
+                    </div>
+                </div>
+                <div class="tab-pane show" id="produtos-associados">
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <input type="checkbox" id="p1" class="material-inputs filled-in chk-col-blue"/>
+                            <label for="p1">Produto 1</label>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input type="checkbox" id="p2" class="material-inputs filled-in chk-col-blue"/>
+                            <label for="p2">Produto 2</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="offcanvas-menu colecao-off">
+        <div class="offcanvas-header">
+            <h5 class="card-title mb-0">
+                Pesquisar Coleções
+            </h5>
+            <button type="button" class="btn btn-dark" onclick="toggleMenuOffcanvas('colecao-off')">
+                <i class="mdi mdi-close"></i>
+            </button>
+        </div>
+        <div class="card-body p-2">
+            <ul class="nav nav-pills bg-nav-pills nav-justified mb-3">
+                <li class="nav-item">
+                    <a href="#colecoes-filtro" data-toggle="tab" aria-expanded="false"
+                       class="nav-link rounded-0 active">
+                        <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
+                        <span class="d-none d-lg-block">Buscar Coleções</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#colecoes-associados" data-toggle="tab" aria-expanded="true" class="nav-link rounded-0">
+                        <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+                        <span class="d-none d-lg-block">Coleções associados</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="colecoes-filtro">
+                    <div class="">
+                        <label class="control-label col-form-label">Pesquisar Coleção: </label>
+                        <input type="text" class="form-control" name="sem_estoque"
+                               placeholder="pesquisar...">
+                    </div>
+                </div>
+                <div class="tab-pane show" id="colecoes-associados">
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <input type="checkbox" id="c1" class="material-inputs filled-in chk-col-blue"/>
+                            <label for="c1">Coleção 1</label>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <input type="checkbox" id="c2" class="material-inputs filled-in chk-col-blue"/>
+                            <label for="c2">Coleção 2</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 @endsection
 
 @once
     @push('scripts')
-        <script src="{{url('assets/libs/jquery.repeater/jquery.repeater.min.js')}}"></script>
-        <script src="{{url('assets/extra-libs/jquery.repeater/repeater-init.js')}}"></script>
-        <script src="{{url('assets/libs/ckeditor/ckeditor.js')}}"></script>
-        <script src="{{url('assets/libs/ckeditor/samples/js/sample.js')}}"></script>
+        <script src="{{url('painel/libs/jquery.repeater/jquery.repeater.min.js')}}"></script>
+        <script src="{{url('painel/extra-libs/jquery.repeater/repeater-init.js')}}"></script>
+        <script src="{{url('painel/libs/ckeditor/ckeditor.js')}}"></script>
+        <script src="{{url('painel/libs/ckeditor/samples/js/sample.js')}}"></script>
         <script data-sample="1">
             CKEDITOR.replace('editorTextarea', {
                 height: 150
@@ -443,3 +733,58 @@
         </script>
     @endpush
 @endonce
+
+
+{{--
+<div class="nav flex-column nav-pills" id="v-pills-tab2" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link show active" id="v-pills-home-tab" data-toggle="pill" href="#p-info" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                    <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Informações básicas</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#p-detalhes" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                    <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Atributos</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Imagens</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Disponibilidade</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Variações</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Preço</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Identificadores</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Estoque</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Frete</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Urls</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Associações</span>
+                                </a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+                                    <i class="mdi mdi-settings-outline d-lg-none d-block mr-1"></i>
+                                    <span class="d-none d-lg-block">Coleções</span>
+                                </a>
+                            </div>
+
+--}}

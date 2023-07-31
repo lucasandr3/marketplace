@@ -15,14 +15,15 @@ class CategoryController extends Controller
     {
         $categories = Category::paginate(10);
 
-        return view('admin.categories.index', [
-            'categories' => $categories
+        return view('admin.pages.categories.index', [
+            'categories' => $categories,
+            'filter' => []
         ]);
     }
 
     public function create(): View
     {
-        return view('admin.categories.create');
+        return view('admin.pages.categories.create');
     }
 
     public function store(CategoryCreateRequest $request): RedirectResponse
@@ -39,7 +40,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($category);
 
-        return view('admin.categories.edit', [
+        return view('admin.pages.categories.edit', [
             'category' => $category
         ]);
     }
@@ -58,6 +59,12 @@ class CategoryController extends Controller
     public function destroy($category): RedirectResponse
     {
         $category = Category::find($category);
+
+        if ($category->products()->count() > 0) {
+            flash('Existe produtos cadastrados nesta categoria!')->warning();
+            return redirect()->route('categories');
+        }
+
         $category->delete();
 
         flash('Categoria Removida com Sucesso!')->success();

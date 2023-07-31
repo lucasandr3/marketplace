@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Interfaces\UploadFilesServiceInterface;
+use App\Http\Interfaces\Services\UploadFilesServiceInterface;
 use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Store;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -79,7 +77,7 @@ class ProductController extends Controller
         $product = Product::find($product);
         $categories = Category::all(['id', 'name']);
 
-        return view('admin.products.edit', [
+        return view('admin.pages.products.edit', [
             'product' => $product,
             'categories' => $categories
         ]);

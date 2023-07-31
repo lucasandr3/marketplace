@@ -1,7 +1,7 @@
 $(function () {
     "use strict";
 
-    fetch('/admin/theme')
+    fetch('/hub/tema')
         .then(res => res.json())
         .then(res => {
             $("#main-wrapper").AdminSettings({

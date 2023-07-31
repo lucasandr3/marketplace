@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <div class="col-md-5 col-12 align-self-center">
         <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('hub')}}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{route('products')}}">Produtos</a></li>
             <li class="breadcrumb-item active">Processo - {{$product->name}}</li>
         </ol>
@@ -130,7 +130,7 @@
                                 <div class="row">
                                     @foreach($product->images()->get() as $image)
                                     <div class="col-md-2">
-                                        <img src="{{$image->image}}" width="100px" height="100px" class="border-3 mb-4"/>
+                                        <img src="{{asset("storage/$image->image")}}" width="100px" height="100px" class="border-3 mb-4"/>
                                     </div>
                                     @endforeach
                                 </div>
