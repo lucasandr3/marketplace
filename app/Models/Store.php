@@ -60,4 +60,9 @@ class Store extends Model
             return $store->owner()->first();
         })->each->notify(new StoreReceiveNewQuotation());
     }
+
+    public function shipping()
+    {
+        return $this->hasMany(Shipping::class);
+    }
 }

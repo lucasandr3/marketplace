@@ -75,7 +75,7 @@
                                 <h5>Aqui você configura os Tipos de Frete.</h5>
                                 <p>Serviços de entrega de produtos</p>
                                 <p><b>Frete</b></p>
-                                <p><a href="#">Configurar <i class="mdi mdi-arrow-right"></i></a></p>
+                                <p><a href="{{route('frete')}}">Configurar <i class="mdi mdi-arrow-right"></i></a></p>
                             </div>
                             <div class="tab-pane fade" id="theme" role="tabpanel"
                                  aria-labelledby="theme-tab-tab">
