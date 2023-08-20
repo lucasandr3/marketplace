@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\OrdersController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductPhotoController;
 use App\Http\Controllers\Admin\QuotationController;
+use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Admin\StoreController;
 use App\Http\Controllers\Admin\ThemeController;
 use App\Http\Controllers\Store\CartController;
@@ -91,6 +92,15 @@ Route::middleware(['auth', 'access.control.store.admin'])->prefix('/meus_dados')
 
 Route::middleware(['auth', 'access.control.store.admin'])->prefix('/configuracoes')->controller(ConfiguracaoController::class)->group(function () {
     Route::get('', 'index')->name('configuracoes');
+});
+
+Route::middleware(['auth', 'access.control.store.admin'])->prefix('/configuracoes/frete')->controller(ShippingController::class)->group(function () {
+    Route::get('', 'index')->name('frete');
+    Route::get('novo', 'create')->name('frete.create');
+    Route::post('novo', 'store')->name('frete.store');
+    Route::get('atualizar/{codService}', 'edit')->name('frete.edit');
+    Route::post('atualizar/{codService}', 'update')->name('frete.update');
+    Route::post('ver/{codService}', 'show')->name('frete.show');
 });
 
 Route::middleware(['auth', 'access.control.store.admin'])->prefix('/hub')->controller(HubController::class)->group(function () {
