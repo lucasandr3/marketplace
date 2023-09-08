@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductPhotos;
+use App\Models\SubCategory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +16,10 @@ class ProductTableSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Product::factory(40)->create();
+        $categories = Category::all();
+
+        foreach ($categories as $category) {
+            $category->products()->save(Product::factory()->make());
+        }
     }
 }

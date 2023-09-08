@@ -12,7 +12,7 @@ class ProductPhotos extends Model
 
     protected $table = 'product_photos';
 
-    protected $fillable = ['image'];
+    protected $fillable = ['product_id','image'];
 
     public function product(): BelongsTo
     {

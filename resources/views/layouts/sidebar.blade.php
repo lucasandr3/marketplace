@@ -24,21 +24,6 @@
                         <span class="hide-menu">Dashboard </span>
                     </a>
                 </li>
-                <li class="sidebar-item @if(request()->is('hub/lojas')) active @endif">
-                    <a class="sidebar-link waves-effect waves-dark @if(request()->is('hub/lojas')) active @endif" href="{{route('stores')}}"
-                       aria-expanded="false">
-                        <i class="mdi mdi-store"></i>
-                        <span class="hide-menu">Lojas </span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item @if(request()->is('hub/produtos')) active @endif">
-                    <a class="sidebar-link waves-effect waves-dark @if(request()->is('hub/produtos')) active @endif" href="{{route('products')}}"
-                       aria-expanded="false">
-                        <i class="mdi mdi-cube"></i>
-                        <span class="hide-menu">Produtos </span>
-                    </a>
-                </li>
 {{--                <li class="sidebar-item @active('relatorios') selected @endactive">--}}
 {{--                    <a class="sidebar-link waves-effect waves-dark @active('relatorios') active @endactive" href="{{route('relatorios')}}"--}}
 {{--                       aria-expanded="false">--}}
@@ -50,17 +35,6 @@
                 <li class="nav-small-cap">
                     <i class="mdi mdi-dots-horizontal"></i>
                     <span class="hide-menu">SEÇÃO VENDAS</span>
-                </li>
-                <li class="sidebar-item @if(request()->is('hub/categorias')) active @endif">
-                    <a class="sidebar-link waves-effect waves-dark @if(request()->is('hub/categorias')) active @endif" href="{{route('categories')}}"
-                       aria-expanded="false">
-                        <i class="mdi mdi-sitemap"></i>
-                        <span class="hide-menu">Categorias </span>
-                    </a>
-                </li>
-                <li class="nav-small-cap">
-                    <i class="mdi mdi-dots-horizontal"></i>
-                    <span class="hide-menu">SEÇÃO ADMINISTRATIVA</span>
                 </li>
                 <li class="sidebar-item @if(request()->is('hub/cotacoes')) active @endif">
                     <a class="sidebar-link waves-effect waves-dark @if(request()->is('hub/cotacoes')) active @endif" href="{{route('cotacoes')}}"
@@ -74,6 +48,35 @@
                        aria-expanded="false">
                         <i class="mdi mdi-receipt"></i>
                         <span class="hide-menu">Pedidos </span>
+                    </a>
+                </li>
+                <li class="nav-small-cap">
+                    <i class="mdi mdi-dots-horizontal"></i>
+                    <span class="hide-menu">SEÇÃO CADASTRO</span>
+                </li>
+                <li class="sidebar-item @if(request()->is('hub/categorias')) active @endif">
+                    <a class="sidebar-link waves-effect waves-dark @if(request()->is('hub/categorias')) active @endif" href="{{route('categories')}}"
+                       aria-expanded="false">
+                        <i class="mdi mdi-sitemap"></i>
+                        <span class="hide-menu">Categorias </span>
+                    </a>
+                </li>
+                <li class="sidebar-item @if(request()->is('hub/produtos')) active @endif">
+                    <a class="sidebar-link waves-effect waves-dark @if(request()->is('hub/produtos')) active @endif" href="{{route('products')}}"
+                       aria-expanded="false">
+                        <i class="mdi mdi-cube"></i>
+                        <span class="hide-menu">Produtos </span>
+                    </a>
+                </li>
+                <li class="nav-small-cap">
+                    <i class="mdi mdi-dots-horizontal"></i>
+                    <span class="hide-menu">SEÇÃO ADMINISTRATIVA</span>
+                </li>
+                <li class="sidebar-item @if(request()->is('hub/lojas')) active @endif">
+                    <a class="sidebar-link waves-effect waves-dark @if(request()->is('hub/lojas')) active @endif" href="{{route('stores')}}"
+                       aria-expanded="false">
+                        <i class="mdi mdi-store"></i>
+                        <span class="hide-menu">Lojas </span>
                     </a>
                 </li>
 {{--                <li class="sidebar-item @active('vendedores') selected @endactive">--}}

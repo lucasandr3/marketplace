@@ -38,8 +38,10 @@ Route::prefix('/')->controller(HomeController::class)->group(function () {
     Route::post('/calcular-frete', 'calcularFrete');
 });
 
-Route::prefix('/category')->controller(\App\Http\Controllers\Store\CategoryController::class)->group(function () {
+Route::prefix('/categoria')->controller(\App\Http\Controllers\Store\CategoryController::class)->group(function () {
     Route::get('{slug}', 'index')->name('category.products');
+    Route::get('departamento/{slug}', 'department')->name('category.departments.products');
+    Route::get('divisao/{slug}', 'division')->name('category.divisions.products');
 });
 
 Route::prefix('/loja')->controller(\App\Http\Controllers\Store\StoreController::class)->group(function () {

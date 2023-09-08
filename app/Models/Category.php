@@ -11,10 +11,22 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
+        'name_category',
         'slug'
     ];
+
+    public function departments() {
+        return $this->hasMany(Department::class)->getResults();
+    }
+
+    public function divisions()
+    {
+        return $this->hasMany(SubDivision::class);
+    }
+
+    public function subcategories() {
+        return $this->hasMany(Subcategory::class);
+    }
 
     public function products(): BelongsToMany
     {

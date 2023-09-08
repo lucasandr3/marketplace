@@ -1,14 +1,10 @@
 @if ($paginator->hasPages())
-    <nav>
+    <nav class="d-flexcs mt-20">
         <ul class="pagination">
             {{-- Previous Page Link --}}
-            @if ($paginator->onFirstPage())
-                <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
-                    <span aria-hidden="true">&lsaquo;</span>
-                </li>
-            @else
+            @if (!$paginator->onFirstPage())
                 <li>
-                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+                    <a href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">Anterior</a>
                 </li>
             @endif
 
@@ -34,13 +30,34 @@
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li>
-                    <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
-                </li>
-            @else
-                <li class="disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
-                    <span aria-hidden="true">&rsaquo;</span>
+                    <a href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">Próximo</a>
                 </li>
             @endif
         </ul>
+        <div>
+            <p class="mb-0" style="color: #666666;">
+                {!! __('Showing') !!}
+                <span class="font-weight-bold"><strong>{{ $paginator->firstItem() }}</strong></span>
+                {!! __('to') !!}
+                <span class="font-weight-bold"><strong>{{ $paginator->lastItem() }}</strong></span>
+                {!! __('of') !!}
+                <span class="font-weight-bold"><strong>{{ $paginator->total() }}</strong></span>
+                resultado(s)
+            </p>
+        </div>
     </nav>
+@elseif($paginator->total() > 0)
+    <div>
+        <p class="mb-0" style="color: #666666;">
+            {!! __('Showing') !!}
+            <span class="font-weight-bold"><strong>{{ $paginator->total() }}</strong></span>
+            resultado(s)
+        </p>
+    </div>
+@else
+    <div>
+        <p class="font-weight-bold mb-0" style="color: #666666;">
+            Sem registros
+        </p>
+    </div>
 @endif

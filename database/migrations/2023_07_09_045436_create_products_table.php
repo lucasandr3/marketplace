@@ -20,6 +20,9 @@ return new class extends Migration
             $table->double('price', 10,2);
             $table->string('slug');
             $table->integer('in_stock')->default(0);
+            $table->boolean('sale')->default(0);
+            $table->boolean('bestseller')->default(0);
+            $table->boolean('new')->default(0);
             $table->timestamps();
 
 //            $table->foreign('store_id')->references('id')->on('stores');

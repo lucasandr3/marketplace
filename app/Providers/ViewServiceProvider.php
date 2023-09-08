@@ -13,6 +13,8 @@ class ViewServiceProvider extends ServiceProvider
         'store.welcome',
         'store.product',
         'store.category',
+        'store.department',
+        'store.division',
         'store.store',
         'store.cart',
         'store.checkout',
@@ -37,7 +39,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Facades\View::composer(self::VIEWS, function (View $view) {
-            $view->with('categories', Category::all(['name', 'slug']));
+            $view->with('categories', Category::query()->limit(10)->get(['id','name_category', 'slug']));
         });
     }
 }

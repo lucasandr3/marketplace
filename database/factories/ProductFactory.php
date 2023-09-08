@@ -22,6 +22,10 @@ class ProductFactory extends Factory
             'body' => fake()->paragraph(5, true),
             'price' => fake()->randomFloat(2, 1, 10),
             'slug' => fake()->slug(),
+            'in_stock' => fake()->randomDigitNotZero(),
+            'sale' => fake()->boolean(),
+            'bestseller' => fake()->boolean(),
+            'new' => fake()->boolean()
         ];
     }
 }

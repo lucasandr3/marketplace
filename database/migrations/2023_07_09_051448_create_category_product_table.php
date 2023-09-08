@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('category_product', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Product::class)->references('id')->on('products');
             $table->foreignIdFor(\App\Models\Category::class)->references('id')->on('categories');
-
-//            $table->foreign('product_id')->references('id')->on('products');
-//            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreignIdFor(\App\Models\Department::class)->references('id')->on('departments');
+            $table->foreignIdFor(\App\Models\SubDivision::class)->references('id')->on('sub_divisions');
         });
     }
 

@@ -14,6 +14,13 @@
                 <!-- Form -->
                 <div class="row">
                     <div class="col-12">
+                        @if($errors->any())
+                            @foreach($errors->all() as $error)
+                                <div class="alert alert-warning alert-dismissible">
+                                    {{$error}}
+                                </div>
+                            @endforeach
+                        @endif
                         <form class="form-horizontal mt-3" method="post" action="{{ route('login') }}">
                             @csrf
 
