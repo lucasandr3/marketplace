@@ -1,6 +1,6 @@
 @foreach($list as $item)
 <div class="widget_item">
-    <a href="">
+    <a href="{{route('product.single', $item->slug)}}">
         <div class="widget_info">
             <div class="widget_productname">{{$item->name }}</div>
             <div class="widget_price"><span>R$ {{number_format($item->price, 2, ',', '.')}}</span> R$ {{number_format($item->price, 2, ',', '.')}}</div>

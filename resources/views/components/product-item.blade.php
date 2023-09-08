@@ -1,5 +1,5 @@
 <div class="product_item">
-    <a href="">
+    <a href="{{route('product.single', $product->slug)}}">
         <div class="product_tags">
             @if($product->sale)
             <div class="product_tag product_tag_red">Promoção</div>

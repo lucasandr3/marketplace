@@ -48,6 +48,10 @@ Route::prefix('/loja')->controller(\App\Http\Controllers\Store\StoreController::
     Route::get('{slug}', 'index')->name('store.index');
 });
 
+Route::prefix('/produto')->controller(\App\Http\Controllers\Store\ProductController::class)->group(function () {
+    Route::get('{slug}', 'index')->name('product.single');
+});
+
 Route::prefix('carrinho')->controller(CartController::class)->group(function () {
     Route::get('/', 'index')->name('cart');
     Route::post('add', 'add')->name('cart.add');

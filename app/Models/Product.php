@@ -30,9 +30,14 @@ class Product extends Model
         return $this->belongsToMany(Category::class, 'category_product', 'product_id', 'category_id');
     }
 
-    public function subcategories(): BelongsToMany
+    public function departments(): BelongsToMany
     {
-        return $this->belongsToMany(SubCategory::class, 'category_product', 'product_id', 'sub_category_id');
+        return $this->belongsToMany(Department::class, 'category_product', 'product_id', 'department_id');
+    }
+
+    public function subdivisions(): BelongsToMany
+    {
+        return $this->belongsToMany(SubDivision::class, 'category_product', 'product_id', 'sub_division_id');
     }
 
     public function brands(): BelongsToMany
