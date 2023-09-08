@@ -32,6 +32,12 @@ header {
 	width:100%;
 	max-width:150px;
 }
+.logo a {
+    text-decoration: none;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #59b210;
+}
 .head_help,
 .head_email {
 	height:20px;
@@ -93,7 +99,7 @@ header {
 
 .cartarea {
 	float:right;
-	margin-top:27px;
+	margin-top:10px;
 }
 .carticon {
 	width:50px;

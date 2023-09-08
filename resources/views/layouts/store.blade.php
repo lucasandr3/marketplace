@@ -11,25 +11,26 @@
     <link rel="stylesheet" href="{{url('assets/css/jquery-ui.theme.min.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{url('assets/css/style.css')}}" type="text/css" />
     <link rel="icon" type="image/x-icon" href="{{url('assets/images/search.png')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 <nav class="navbar topnav">
     <div class="container">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="">Home</a></li>
-            <li><a href="">Contact</a></li>
+            <li class="active"><a href="{{route('home')}}">Início</a></li>
+            <li><a href="#"><i class="fa fa-message"></i> Suporte</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">English
-                    <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">English</a></li>
-                    <li><a href="#">Português</a></li>
-                    <li><a href="#">Espanhol</a></li>
-                </ul>
-            </li>
-            <li><a href="">Login</a></li>
+{{--            <li class="dropdown">--}}
+{{--                <a class="dropdown-toggle" data-toggle="dropdown" href="#">English--}}
+{{--                    <span class="caret"></span></a>--}}
+{{--                <ul class="dropdown-menu">--}}
+{{--                    <li><a href="#">English</a></li>--}}
+{{--                    <li><a href="#">Português</a></li>--}}
+{{--                    <li><a href="#">Espanhol</a></li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
+            <li><a href=""><i class="fa fa-sign-in"></i> Entrar</a></li>
         </ul>
     </div>
 </nav>
@@ -37,11 +38,14 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-2 logo">
-                <a href=""><img src="{{url('assets/images/logo.png')}}" /></a>
+                <a href="{{route('home')}}">
+                    Super App
+{{--                    <img src="{{url('assets/images/logo.png')}}" />--}}
+                </a>
             </div>
-            <div class="col-sm-7">
-                <div class="head_help">(11) 9999-9999</div>
-                <div class="head_email">contato@<span>loja2.com.br</span></div>
+            <div class="col-sm-8">
+{{--                <div class="head_help">(11) 9999-9999</div>--}}
+{{--                <div class="head_email">contato@<span>loja2.com.br</span></div>--}}
 
                 <div class="search_area">
                     <form method="GET">
@@ -53,7 +57,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <a href="">
                     <div class="cartarea">
                         <div class="carticon">
