@@ -541,5 +541,7 @@
 <script type="text/javascript" src="{{url('assets/js/owl-carrousel.js')}}"></script>
 <script type="text/javascript" src="{{url('assets/js/script.js')}}"></script>
 
+@yield('scripts')
+
 </body>
 </html>
