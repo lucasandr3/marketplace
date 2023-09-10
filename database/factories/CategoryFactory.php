@@ -17,7 +17,7 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name_category' => fake('pt_BR')->name,
+            'name_category' => fake('pt_BR')->word(),
             'slug' => fake('pt_BR')->slug
         ];
     }

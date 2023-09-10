@@ -13,7 +13,7 @@ class BrandProductSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 40; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             DB::table('brand_product')->insert([
                 'product_id' => $i + 1,
                 'brand_id' => $i + 1

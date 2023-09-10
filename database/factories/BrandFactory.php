@@ -17,7 +17,7 @@ class BrandFactory extends Factory
     public function definition(): array
     {
         return [
-            'name_brand' => fake()->name(),
+            'name_brand' => fake('pt_BR')->word(),
             'slug' => fake()->slug()
         ];
     }

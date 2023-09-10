@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
             CategoryTableSeeder::class,
             DepartmentSeeder::class,
             SubDivisionSeeder::class,
-            CategoryProductSeeder::class,
             BrandSeeder::class,
+            ProductTableSeeder::class,
+            ProductPhotoSeeder::class,
+            CategoryProductSeeder::class,
             BrandProductSeeder::class,
-            ProductPhotoSeeder::class
-//            ProductTableSeeder::class
         ]);
     }
 }

@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index()
     {
         //$products = Product::limit(6)->orderBy('id', 'DESC')->get();
-        $products = Product::query()->orderBy('id', 'DESC')->paginate(15, ['*'], 'pagina');
+        $products = Product::query()->orderBy('id', 'DESC')->paginate(3, ['*'], 'pagina');
         $stores = Store::query()->limit(3)->get();
         $brands = Brand::query()->limit(10)->get();
         $featured = Product::query()->orderBy('id', 'DESC')->limit(3)->get();
