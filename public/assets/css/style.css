@@ -1469,3 +1469,20 @@ h2, a, a:hover, a:focus, a:active, .primary-color, .le-color, .breadcrumb-nav-ho
     color: #e71212;
     font-weight: bold;
 }
+
+.button-danger {
+    /*height:35px;*/
+    float: left;
+    margin-left: 10px;
+    background-color: #e71212;
+    border: 1px solid #e71212;
+    border-radius: 3px;
+    color: #FFF;
+    font-weight: bold;
+    padding: 10px 12px;
+}
+
+.product-title {
+    color: #0a1016;
+    font-weight: 600;
+}

@@ -13,7 +13,10 @@ class CartController extends Controller
         $cart = session()->has('cart') ? session()->get('cart') : [];
 
         return view('store.cart', [
-            'cart' => $cart
+            'cart' => $cart,
+            'category_filter' => null,
+            'brands' => [],
+            'listFeatured' => []
         ]);
     }
 
@@ -23,12 +26,15 @@ class CartController extends Controller
 
         $product = Product::where('slug', $productData['slug'])->first(['name', 'price', 'store_id'])->toArray();
 
+        $totalProduct = bcmul($product['price'], (int)$productData['quantity']);
+
         if (empty($product)) {
             flash('Algo deu errado, tente novamente.')->error();
             return redirect()->back();
         }
 
         $productData['quantity'] = abs($productData['quantity']);
+        $productData['total'] = $totalProduct;
         $product = array_merge($productData, $product);
 
         if (session()->has('cart')) {

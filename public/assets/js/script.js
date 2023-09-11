@@ -275,6 +275,7 @@ $(function(){
 
         $('.addtocart_qt').val(qt);
         $('input[name=qt_product]').val(qt);
+        document.querySelector('.quantity-product').value = qt;
 
     });
 

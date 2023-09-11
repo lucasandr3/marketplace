@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="col-sm-7">
-        <h2>{{$product->name}}</h2>
+        <h2 class="product-title">{{$product->name}}</h2>
         <small>{{$product->brands()->first()->name_brand}}</small><br/>
         <hr/>
         <p>
@@ -46,18 +46,22 @@
 
                 <input type="text" class="form-control-custom flex-1" name="cep_destino" placeholder="Digite o CEP de destino">
                 <button class="frete_submit process-frete-disable sr-only" type="button" disabled>
-                    <i class="fa fa-spinner fa-spin"></i>
+                    <i class="fa fa-circle-notch fa-spin"></i>
                 </button>
                 <button type="submit" class="frete_submit process-frete">Calcular Frete</button>
             </div>
         </form>
     </div>
     <div class="col-md-6">
-        <form method="POST" class="addtocartform" action="">
-            <input type="hidden" name="id_product" value="{{$product->info}}"/>
-            <input type="hidden" name="qt_product" value="1"/>
+        <form method="POST" class="addtocartform" action="{{route('cart.add')}}">
+            @csrf
+            <input type="hidden" name="product[name]" value="{{$product->name}}">
+            <input type="hidden" name="product[price]" value="{{$product->price}}">
+            <input type="hidden" name="product[slug]" value="{{$product->slug}}">
+            <input type="hidden" name="product[shipping]" value="0" class="shipping-product">
+            <input type="hidden" name="product[quantity]" value="1" class="quantity-product">
             <button data-action="decrease">-</button>
-            <input type="text" name="qt" value="1" class="addtocart_qt" disabled/>
+            <input type="text" name="qt_product" value="1" class="addtocart_qt" disabled/>
             <button data-action="increase">+</button>
             <input class="addtocart_submit" type="submit" value="Adicionar ao Carrinho"/>
             <input class="addtocart_submit" type="submit" value="Cotar"/>
@@ -173,9 +177,10 @@
                 .then(response => response.json())
                 .then(data => {
                     let valor = data.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
-                    resultadoDiv.innerHTML = `<p>Valor: <strong>${valor}</strong></p><p>Prazo: ${data.prazo} dias úteis</p>`;
+                    resultadoDiv.innerHTML = `<p>Valor do frete: <strong>${valor}</strong></p><p>Prazo: ${data.prazo} dias úteis</p>`;
                     document.querySelector('.process-frete-disable').classList.add('sr-only')
                     document.querySelector('.process-frete').classList.remove('sr-only')
+                    document.querySelector('.shipping-product').value = data.valor;
                 });
         });
     </script>

@@ -66,14 +66,22 @@
                 </div>
             </div>
             <div class="col-sm-2">
-                <a href="">
+                <a href="{{route('cart')}}">
                     <div class="cartarea">
                         <div class="carticon">
-                            <div class="cartqt">0</div>
+                            @if(session()->has('cart'))
+                                <div class="cartqt">{{count(session()->get('cart'))}}</div>
+                            @else
+                                <div class="cartqt">0</div>
+                            @endif
                         </div>
                         <div class="carttotal">
                             Seu Carrinho:<br/>
-                            <span>R$ 0,00</span>
+                            @if(session()->has('cart'))
+                                <span>R$ {{number_format(session()->get('cart')[0]['total'], 2 ,',', '.')}}</span>
+                            @else
+                                <span>R$ 0,00</span>
+                            @endif
                         </div>
                     </div>
                 </a>
