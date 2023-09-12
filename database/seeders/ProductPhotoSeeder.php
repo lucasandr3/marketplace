@@ -30,6 +30,25 @@ class ProductPhotoSeeder extends Seeder
                 ]),
          */
 
+//        foreach ($produtos as $produto) {
+//            ProductPhotos::create([
+//                'product_id' => $produto->id,
+//                'image' => fake()->randomElement([
+//                    'public/assets/images/bomba1.png',
+//                    'public/assets/images/bomba2.png',
+//                    'public/assets/images/bomba3.png',
+//                    'public/assets/images/bomba4.png',
+//                    'public/assets/images/produto1.png',
+//                    'public/assets/images/produto2.png',
+//                    'public/assets/images/produto3.png',
+//                    'public/assets/images/produto4.png',
+//                    'public/assets/images/produto5.png',
+//                ]),
+//                'created_at' => now(),
+//                'updated_at' => now(),
+//            ]);
+//        }
+
         foreach ($produtos as $produto) {
             ProductPhotos::create([
                 'product_id' => $produto->id,
