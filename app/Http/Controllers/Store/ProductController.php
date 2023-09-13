@@ -16,7 +16,6 @@ class ProductController extends Controller
         $featured = Product::query()->orderBy('id', 'DESC')->limit(3)->get();
         $category_filter = $this->makeFilter($product, 'category');
 
-
         return view('store.product', [
             'product' => $product,
             'brands' => $brands,

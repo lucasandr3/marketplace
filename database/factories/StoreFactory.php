@@ -22,6 +22,10 @@ class StoreFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'mobile_phone' => fake()->phoneNumber(),
             'slug' => fake()->slug(),
+            'logo' => fake()->randomElement([
+                'loja-agricola.jpeg',
+                'loja-eletronicos.jpg',
+            ])
         ];
     }
 }

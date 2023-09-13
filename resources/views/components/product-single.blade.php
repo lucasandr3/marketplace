@@ -1,5 +1,16 @@
 <div class="row">
     <div class="col-sm-5">
+        <div class="product_tags">
+            @if($product->sale)
+                <div class="product_tag product_tag_red">Promoção</div>
+            @endif
+            @if($product->bestseller)
+                <div class="product_tag product_tag_green">Mais Vendidos</div>
+            @endif
+            @if($product->new)
+                <div class="product_tag product_tag_blue">Novo</div>
+            @endif
+        </div>
         <div class="mainphoto">
             @if($product->images()->count())
                 <img src="{{asset("storage/".$product->images()->first()->image)}}" class="card-img-top image-product"/>
@@ -104,20 +115,20 @@
                     <ul class="tabled-data">
                         <li>
                             <label>Fornecedor:</label>
-                            <div class="value">IDX Soluções em TI</div>
+                            <div class="value">{{$product->supply->name}}</div>
                         </li>
                         <li>
                             <label>CNPJ:</label>
-                            <div class="value">73.314.790/0001-53</div>
+                            <div class="value">{{$product->supply->document}}</div>
                         </li>
                         <li>
                             <label>Cidade:</label>
-                            <div class="value">São Paulo - SP</div>
+                            <div class="value">{{$product->supply->city}}</div>
                         </li>
                         <li>
                             <label>Loja:</label>
                             <div class="value">
-                                <a href="">ver loja <i class="fa fa-arrow-right"></i></a>
+                                <a href="{{route('store.index', $product->store->slug)}}">ver loja <i class="fa fa-arrow-right"></i></a>
                             </div>
                         </li>
                     </ul><!-- /.tabled-data -->
@@ -128,15 +139,15 @@
                     <ul class="tabled-data">
                         <li>
                             <label>Process:</label>
-                            <div class="value">001/2023</div>
+                            <div class="value">{{$product->process->number}}</div>
                         </li>
                         <li>
                             <label>Data Homologação:</label>
-                            <div class="value">20/05/2023</div>
+                            <div class="value">{{\Illuminate\Support\Carbon::parse($product->process->homologation_date)->format('d/m/Y')}}</div>
                         </li>
                         <li>
                             <label>Orgão:</label>
-                            <div class="value">Prefeitura Araguari - MG</div>
+                            <div class="value">{{$product->process->organ}}</div>
                         </li>
                         <li>
                             <label>Processo:</label>

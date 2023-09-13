@@ -374,7 +374,7 @@ footer h3 {
     clear: both;
     padding-left: 5px;
     padding-right: 5px;
-    margin-top: 5px;
+    margin-top: 0px;
     color: #FFF;
 }
 
@@ -575,6 +575,7 @@ footer h3 {
 
 .mainphoto img {
     width: 100%;
+    border: 1px solid #eee;
 }
 
 .photo_item {
@@ -582,6 +583,8 @@ footer h3 {
     float: left;
     text-align: center;
     cursor: pointer;
+    border: 1px solid #eee;
+    border-top: none;
 }
 
 .photo_item img {
@@ -640,6 +643,14 @@ footer h3 {
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
     background-color: #59b210;
     border-color: #59b210;
+}
+
+.p-0 {
+    padding: 0;
+}
+
+.p-10 {
+    padding: 10px;
 }
 
 .mb-0 {
@@ -1480,6 +1491,11 @@ h2, a, a:hover, a:focus, a:active, .primary-color, .le-color, .breadcrumb-nav-ho
     color: #FFF;
     font-weight: bold;
     padding: 10px 12px;
+}
+
+.button-danger:hover {
+    color: #eee;
+    text-decoration: none;
 }
 
 .product-title {
