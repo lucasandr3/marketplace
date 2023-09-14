@@ -32,7 +32,7 @@ class ProductTableSeeder extends Seeder
                 'new' => fake()->boolean()
             ],
             [
-                'store_id' => 2,
+                'store_id' => 1,
                 'name' => 'CPU intel core i5',
                 'description' => fake()->sentence(),
                 'body' => fake()->paragraph(5, true),
@@ -44,7 +44,7 @@ class ProductTableSeeder extends Seeder
                 'new' => fake()->boolean()
             ],
             [
-                'store_id' => 3,
+                'store_id' => 1,
                 'name' => 'HP Scanner 2910P',
                 'description' => fake()->sentence(),
                 'body' => fake()->paragraph(5, true),
@@ -56,7 +56,7 @@ class ProductTableSeeder extends Seeder
                 'new' => fake()->boolean()
             ],
             [
-                'store_id' => 4,
+                'store_id' => 1,
                 'name' => 'Galaxy Tab GT-P5210 16GB',
                 'description' => fake()->sentence(),
                 'body' => fake()->paragraph(5, true),
@@ -68,7 +68,7 @@ class ProductTableSeeder extends Seeder
                 'new' => fake()->boolean()
             ],
             [
-                'store_id' => 5,
+                'store_id' => 1,
                 'name' => 'iPod touch 5th generation 64GB',
                 'description' => fake()->sentence(),
                 'body' => fake()->paragraph(5, true),
@@ -80,7 +80,7 @@ class ProductTableSeeder extends Seeder
                 'new' => fake()->boolean()
             ],
             [
-                'store_id' => 6,
+                'store_id' => 1,
                 'name' => 'Monitor full HD multi-Touch',
                 'description' => fake()->sentence(),
                 'body' => fake()->paragraph(5, true),
@@ -92,7 +92,7 @@ class ProductTableSeeder extends Seeder
                 'new' => fake()->boolean()
             ],
             [
-                'store_id' => 7,
+                'store_id' => 1,
                 'name' => 'cinemizer OLED 3D virtual reality TV Video',
                 'description' => fake()->sentence(),
                 'body' => fake()->paragraph(5, true),
@@ -104,7 +104,7 @@ class ProductTableSeeder extends Seeder
                 'new' => fake()->boolean()
             ],
             [
-                'store_id' => 8,
+                'store_id' => 1,
                 'name' => 'kardon BDS 7772/120 integrated 3D',
                 'description' => fake()->sentence(),
                 'body' => fake()->paragraph(5, true),
@@ -116,7 +116,7 @@ class ProductTableSeeder extends Seeder
                 'new' => fake()->boolean()
             ],
             [
-                'store_id' => 9,
+                'store_id' => 1,
                 'name' => 'LC-70UD1U 70 class aquos 4K ultra HD',
                 'description' => fake()->sentence(),
                 'body' => fake()->paragraph(5, true),
@@ -128,7 +128,7 @@ class ProductTableSeeder extends Seeder
                 'new' => fake()->boolean()
             ],
             [
-                'store_id' => 10,
+                'store_id' => 1,
                 'name' => 'PowerShot elph 16MP digital camera',
                 'description' => fake()->sentence(),
                 'body' => fake()->paragraph(5, true),

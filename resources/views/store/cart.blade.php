@@ -60,17 +60,20 @@
     </table>
 
     <hr/>
-    <a href="{{route('cart.cancel')}}" class="button-danger">Cancelar compra</a>
+    <div class="d-flexcs">
+        <div>
+            <a href="{{route('cart.cancel')}}" class="button-danger">Cancelar compra</a>
+        </div>
 
-    <form method="POST" action="" style="float:right">
-        <select name="payment_type" class="form-control-custom">
-            <option value="checkout_transparente">Pagseguro Checkout Transparente</option>
-            <option value="mp">Mercado Pago</option>
-            <option value="paypal">PayPal</option>
-            <option value="boleto">Boleto Bancário</option>
-        </select>
-
-        <input type="submit" value="Finalizar Compra" class="addtocart_submit" />
-    </form>
+        <div>
+            <select name="payment_type" class="form-control-custom">
+                <option value="checkout_transparente">Pagseguro Checkout Transparente</option>
+                <option value="mp">Mercado Pago</option>
+                <option value="paypal">PayPal</option>
+                <option value="boleto">Boleto Bancário</option>
+            </select>
+            <a href="{{route('checkout')}}" class="addtocart_submit">Finalizar compra</a>
+        </div>
+    </div>
 
 @endsection

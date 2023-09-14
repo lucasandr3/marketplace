@@ -34,7 +34,7 @@
             {{--                    <li><a href="#">Espanhol</a></li>--}}
             {{--                </ul>--}}
             {{--            </li>--}}
-            <li><a href=""><i class="fa fa-sign-in"></i> Entrar</a></li>
+            <li><a href="{{route('hub')}}"><i class="fa fa-sign-in"></i> Entrar</a></li>
         </ul>
     </div>
 </nav>
@@ -356,6 +356,9 @@
                 </aside>
             </div>
             <div class="col-sm-9">
+                <div class="row">
+                    @include('flash::message')
+                </div>
                 @yield('content')
             </div>
         </div>
@@ -378,49 +381,49 @@
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="{{asset('assets/images/default.png')}}" />
+                        <img alt="" src="{{asset('assets/images/marcas/intel.png')}}" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="{{asset('assets/images/default.png')}}" />
+                        <img alt="" src="{{asset('assets/images/marcas/samsung.png')}}" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="{{asset('assets/images/default.png')}}" />
+                        <img alt="" src="{{asset('assets/images/marcas/apple.png')}}" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="{{asset('assets/images/default.png')}}" />
+                        <img alt="" src="{{asset('assets/images/marcas/lg.png')}}" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="{{asset('assets/images/default.png')}}" />
+                        <img alt="" src="{{asset('assets/images/marcas/kacher.png')}}" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="{{asset('assets/images/default.png')}}" />
+                        <img alt="" src="{{asset('assets/images/marcas/philips.png')}}" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="{{asset('assets/images/default.png')}}" />
+                        <img alt="" src="{{asset('assets/images/marcas/jhon.png')}}" />
                     </a>
                 </div><!-- /.carousel-item -->
 
                 <div class="carousel-item">
                     <a href="#">
-                        <img alt="" src="{{asset('assets/images/default.png')}}" />
+                        <img alt="" src="{{asset('assets/images/marcas/intel.png')}}" />
                     </a>
                 </div><!-- /.carousel-item -->
 
@@ -464,8 +467,8 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-sm-offset-2 no-padding">
                     <form method="POST">
-                        <input class="subemail" name="email" placeholder="Subscribe to our newsletter">
-                        <input type="submit" value="Subscribe"/>
+                        <input class="subemail" name="email" placeholder="Inscreva-se na newsletter">
+                        <input type="submit" value="Inscrever"/>
                     </form>
                 </div>
             </div>
@@ -485,33 +488,18 @@
                             <h3>Categorias</h3>
                             <ul>
                                 <li><a href="#">Categoria X</a></li>
-                                <li><a href="#">Categoria X</a></li>
-                                <li><a href="#">Categoria X</a></li>
-                                <li><a href="#">Categoria X</a></li>
-                                <li><a href="#">Categoria X</a></li>
-                                <li><a href="#">Categoria X</a></li>
                             </ul>
                         </div>
                         <div class="col-sm-4">
-                            <h3>Information</h3>
+                            <h3>Políticas</h3>
                             <ul>
                                 <li><a href="#">Menu 1</a></li>
-                                <li><a href="#">Menu 2</a></li>
-                                <li><a href="#">Menu 3</a></li>
-                                <li><a href="#">Menu 4</a></li>
-                                <li><a href="#">Menu 5</a></li>
-                                <li><a href="#">Menu 6</a></li>
                             </ul>
                         </div>
                         <div class="col-sm-4">
-                            <h3>Information</h3>
+                            <h3>Informações</h3>
                             <ul>
                                 <li><a href="#">Menu 1</a></li>
-                                <li><a href="#">Menu 2</a></li>
-                                <li><a href="#">Menu 3</a></li>
-                                <li><a href="#">Menu 4</a></li>
-                                <li><a href="#">Menu 5</a></li>
-                                <li><a href="#">Menu 6</a></li>
                             </ul>
                         </div>
                     </div>

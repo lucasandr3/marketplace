@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Store;
 
 use App\Events\UserOrderedItems;
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Store;
 use App\Payment\PagSeguro\CreditCard;
 use Exception;
@@ -32,7 +33,10 @@ class CheckoutController extends Controller
         $cartItens = array_sum($cartItens);
 
         return view('store.checkout', [
-            'total' => $cartItens
+            'total' => $cartItens,
+            'brands' => $brands = Brand::query()->limit(10)->get(),
+            'category_filter' => null,
+            'listFeatured' => []
         ]);
     }
 
@@ -102,7 +106,11 @@ class CheckoutController extends Controller
 
     public function thanks()
     {
-        return view('store.thanks');
+        return view('store.thanks', [
+            'brands' => $brands = Brand::query()->limit(10)->get(),
+            'category_filter' => null,
+            'listFeatured' => []
+        ]);
     }
 
     private function makeCodeSessionPagseguro()

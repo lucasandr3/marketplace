@@ -561,6 +561,11 @@ footer h3 {
     padding: 10px 12px;
 }
 
+.addtocart_submit:hover {
+    color: white;
+    text-decoration: none;
+}
+
 .frete_submit {
     /*height:35px;*/
     float: left;

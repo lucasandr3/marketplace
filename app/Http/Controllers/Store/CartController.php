@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class CartController extends Controller
         return view('store.cart', [
             'cart' => $cart,
             'category_filter' => null,
-            'brands' => [],
+            'brands' => $brands = Brand::query()->limit(10)->get(),
             'listFeatured' => []
         ]);
     }
