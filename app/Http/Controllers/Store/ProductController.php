@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Store;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\FilterService;
 use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function index($slug)
+    public function index(Request $request, $slug)
     {
+        $filter = FilterService::filter($request);
         $product = Product::query()->where('slug', $slug)->first();
         $brands = Brand::query()->limit(10)->get();
         $featured = Product::query()->orderBy('id', 'DESC')->limit(3)->get();
@@ -20,7 +22,8 @@ class ProductController extends Controller
             'product' => $product,
             'brands' => $brands,
             'listFeatured' => $featured,
-            'category_filter' => $category_filter
+            'category_filter' => $category_filter,
+            'filter' => $filter
         ]);
     }
 

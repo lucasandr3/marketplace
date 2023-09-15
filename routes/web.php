@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('/')->controller(HomeController::class)->group(function () {
-    Route::get('', 'index')->name('home');
+    Route::match(['post', 'get'],'', 'index')->name('home');
     Route::get('produto/{slug}', 'single')->name('product.single');
     Route::post('/calcular-frete', 'calcularFrete');
 });

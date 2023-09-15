@@ -52,14 +52,16 @@
                 {{--                <div class="head_email">contato@<span>loja2.com.br</span></div>--}}
 
                 <div class="search_area">
-                    <form method="GET">
-                        <input type="text" name="s" required placeholder="Pesquisar..."/>
-                        <select name="category">
-                            <option value="">Categoria</option>
-                            <option value="">Departamento</option>
-                            <option value="">Divisão</option>
-                            <option value="">Processo</option>
-                            <option value="">Fornecedor</option>
+                    <form method="POST" action="{{route('home')}}">
+                        @csrf
+                        <input type="text" name="term" required value="{{$filter->term ?? ''}}" placeholder="Pesquisar..."/>
+                        <select name="value">
+                            <option value="">Selecione o termo de pesquisa</option>
+                            <option value="category" @if($filter->value === 'category') selected @endif>Categoria</option>
+                            <option value="department" @if($filter->value === 'department') selected @endif>Departamento</option>
+                            <option value="division" @if($filter->value === 'division') selected @endif>Divisão</option>
+                            <option value="process" @if($filter->value === 'process') selected @endif>Processo</option>
+                            <option value="supply" @if($filter->value === 'supply') selected @endif>Fornecedor</option>
                         </select>
                         <input type="submit" value=""/>
                     </form>
